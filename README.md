@@ -1,8 +1,8 @@
 # Assignment 1: driver-quiz (Due October 2nd)
 
 ## Members
-* [sirMerr - Tiffany Le-Nguyen](https://github.com/sirMerr)
-* [theoathomas - Theodore Acco-Thomas](https://github.com/theoathomas)
+* [@sirMerr - Tiffany Le-Nguyen](https://github.com/sirMerr)
+* [@theoathomas - Theodore Acco-Thomas](https://github.com/theoathomas)
 
 ## Project Overview¶
 
