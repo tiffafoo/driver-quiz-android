@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         image4 = (ImageView) findViewById(R.id.imageView4);
 
         // Initiate questions
-        setquestions();
+        setQuestions();
 
         image1.setImageResource(questions.get(9).getImageLink());
     }
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
      * Initiates the questions array with road sign
      * images from res/drawable
      */
-    private void setquestions() {
+    private void setQuestions() {
         questions.add(new Question(R.drawable.sign1, getResources().getString(R.string.definition_sign1)));
         questions.add(new Question(R.drawable.sign2, getResources().getString(R.string.definition_sign2)));
         questions.add(new Question(R.drawable.sign3, getResources().getString(R.string.definition_sign3)));
