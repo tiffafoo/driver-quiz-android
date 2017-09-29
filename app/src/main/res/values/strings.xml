@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">DQTiffanyTheodore</string>
+    <string name="quiz_number">Quiz # 1</string>
+    <string name="instruction">Which image matches:</string>
+    <string name="definition">Test Definition</string>
+    <string name="about">About</string>
+    <string name="hint">About</string>
+    <string name="checked_answer">Incorrect. Next Question!</string>
 </resources>

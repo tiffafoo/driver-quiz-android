@@ -3,12 +3,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="cs.dawson.myapplication.MainActivity">
+    android:layout_height="wrap_content"
+    tools:context="cs.dawson.myapplication.MainActivity"
+    android:weightSum="1"
+    android:orientation="vertical">
 
     <TextView
+        android:id="@+id/textViewQuizNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="@string/quiz_number" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textViewInstructions"
+            android:layout_width="195dp"
+            android:layout_height="wrap_content"
+            android:text="@string/instruction" />
+
+        <TextView
+            android:id="@+id/textViewDefinition"
+            android:layout_width="207dp"
+            android:layout_height="wrap_content"
+            android:layout_column="4"
+            android:layout_row="0"
+            android:text="@string/definition" />
+    </GridLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="299dp">
+
+    </GridLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/buttonAbout"
+            android:layout_width="157dp"
+            android:layout_height="wrap_content"
+            android:text="@string/about"
+            android:layout_weight="0.26" />
+
+        <Button
+            android:id="@+id/buttonHint"
+            android:layout_width="117dp"
+            android:layout_height="wrap_content"
+            android:text="@string/hint"
+            android:layout_weight="0.73" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonCheckedAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/checked_answer" />
+
 </LinearLayout>
