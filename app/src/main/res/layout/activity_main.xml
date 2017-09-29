@@ -3,12 +3,110 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="cs.dawson.myapplication.MainActivity">
+    android:layout_height="wrap_content"
+    tools:context="cs.dawson.myapplication.MainActivity"
+    android:weightSum="1"
+    android:orientation="vertical">
 
-    <TextView
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textViewQuizNumber"
+            android:layout_width="194dp"
+            android:layout_height="wrap_content"
+            android:text="@string/quiz_number" />
+
+        <TextView
+            android:id="@+id/textViewScore"
+            android:layout_width="191dp"
+            android:layout_height="wrap_content"
+            android:text="@string/score" />
+    </GridLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textViewInstructions"
+            android:layout_width="195dp"
+            android:layout_height="wrap_content"
+            android:text="@string/instruction" />
+
+        <TextView
+            android:id="@+id/textViewDefinition"
+            android:layout_width="207dp"
+            android:layout_height="wrap_content"
+            android:layout_column="4"
+            android:layout_row="0"
+            android:text="@string/definition" />
+    </GridLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="299dp">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="193dp"
+            android:layout_height="157dp"
+            android:layout_column="0"
+            android:layout_row="0"
+            app:srcCompat="@android:drawable/arrow_down_float" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="192dp"
+            android:layout_height="157dp"
+            android:layout_column="1"
+            android:layout_row="0"
+            app:srcCompat="@android:drawable/arrow_down_float" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="192dp"
+            android:layout_height="157dp"
+            android:layout_column="0"
+            android:layout_row="1"
+            app:srcCompat="@android:drawable/arrow_down_float" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="192dp"
+            android:layout_height="157dp"
+            android:layout_column="1"
+            android:layout_row="1"
+            app:srcCompat="@android:drawable/arrow_down_float" />
+
+    </GridLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/buttonAbout"
+            android:layout_width="157dp"
+            android:layout_height="wrap_content"
+            android:text="@string/about"
+            android:layout_weight="0.26" />
+
+        <Button
+            android:id="@+id/buttonHint"
+            android:layout_width="117dp"
+            android:layout_height="wrap_content"
+            android:text="@string/hint"
+            android:layout_weight="0.73" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonCheckedAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/checked_answer" />
+
 </LinearLayout>
