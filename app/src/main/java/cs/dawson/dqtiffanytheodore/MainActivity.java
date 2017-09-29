@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import cs.dawson.dqtiffanytheodore.entities.Question;
 
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     Button hintButton, aboutButton, nextButton;
     ImageView image1, image2, image3, image4;
     ArrayList<Question> questions = new ArrayList<>();
+    Question currQuestion;
+    int quizNumber = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +49,13 @@ public class MainActivity extends AppCompatActivity {
         // Initiate questions
         setQuestions();
 
-        image1.setImageResource(questions.get(9).getImageLink());
+        // Initialize layout
+        currQuestion = getRandomQuestion();
+        definitionTV.setText(currQuestion.getDefinition());
+        image1.setImageResource(currQuestion.getImageLink());
+        image2.setImageResource(getRandomQuestion().getImageLink());
+        image3.setImageResource(getRandomQuestion().getImageLink());
+        image4.setImageResource(getRandomQuestion().getImageLink());
     }
 
     /**
@@ -68,5 +78,15 @@ public class MainActivity extends AppCompatActivity {
         questions.add(new Question(R.drawable.sign13, getResources().getString(R.string.definition_sign13)));
         questions.add(new Question(R.drawable.sign14, getResources().getString(R.string.definition_sign14)));
         questions.add(new Question(R.drawable.sign15, getResources().getString(R.string.definition_sign15)));
+    }
+
+    /**
+     * Gets a random Question
+     * @return Question
+     */
+    private Question getRandomQuestion() {
+        Random random = new Random();
+
+        return questions.get(random.nextInt(questions.size()));
     }
 }
