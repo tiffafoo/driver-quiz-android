@@ -31,5 +31,5 @@ public class MainActivity extends AppCompatActivity {
         aboutButton = (Button) findViewById(R.id.buttonAbout);
         nextButton = (Button) findViewById(R.id.buttonCheckedAnswer);
     }
-    
+
 }
