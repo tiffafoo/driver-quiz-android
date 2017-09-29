@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">DQTiffanyTheodore</string>
-    <string name="quiz_number">Quiz # 1</string>
+    <string name="quiz_number">Question # 1/4</string>
     <string name="instruction">Which image matches:</string>
     <string name="definition">Test Definition</string>
     <string name="about">About</string>
-    <string name="hint">About</string>
+    <string name="hint">Hint</string>
+    <string name="score">Score: 0/4</string>
     <string name="checked_answer">Incorrect. Next Question!</string>
 </resources>
