@@ -1,4 +1,4 @@
-package cs.dawson.myapplication;
+package cs.dawson.dqtiffanytheodore;
 
 import org.junit.Test;
 

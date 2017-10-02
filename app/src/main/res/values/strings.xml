@@ -1,3 +1,25 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">DQTiffanyTheodore</string>
+    <string name="quiz_number">Question # 1/4</string>
+    <string name="instruction">Which image matches:</string>
+    <string name="definition">Test Definition</string>
+    <string name="about">About</string>
+    <string name="hint">Hint</string>
+    <string name="score">Score: 0/4</string>
+    <string name="checked_answer">Incorrect. Next Question!</string>
+    <string name="definition_sign1">Definition for sign 1</string>
+    <string name="definition_sign2">Definition for sign 2</string>
+    <string name="definition_sign3">Definition for sign 3</string>
+    <string name="definition_sign4">Definition for sign 4</string>
+    <string name="definition_sign5">Definition for sign 5</string>
+    <string name="definition_sign6">Definition for sign 6</string>
+    <string name="definition_sign7">Definition for sign 7</string>
+    <string name="definition_sign8">Definition for sign 8</string>
+    <string name="definition_sign9">Definition for sign 9</string>
+    <string name="definition_sign10">Definition for sign 10</string>
+    <string name="definition_sign11">Definition for sign 11</string>
+    <string name="definition_sign12">Definition for sign 12</string>
+    <string name="definition_sign13">Definition for sign 13</string>
+    <string name="definition_sign14">Definition for sign 14</string>
+    <string name="definition_sign15">Definition for sign 15</string>
 </resources>

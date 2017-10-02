@@ -1,4 +1,4 @@
-package cs.dawson.myapplication;
+package cs.dawson.dqtiffanytheodore;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("cs.dawson.myapplication", appContext.getPackageName());
+        assertEquals("cs.dawson.dqtiffanytheodore", appContext.getPackageName());
     }
 }
