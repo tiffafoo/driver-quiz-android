@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         // Initialize layout
         currQuestion = getRandomQuestion();
         definitionTV.setText(currQuestion.getDefinition());
+        quizNumberTV.setText(Integer.toString(quizNumber));
 
         //Ensure that correct answer is never in the same place at startup
         Random random = new Random();
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void imageClick(View view){
 
-        ImageButton clickedimage = (ImageButton) findViewById(view.getId());
+        ImageButton selectedImage = (ImageButton) findViewById(view.getId());
 
         int chosenPosition = Integer.parseInt(getResources().getResourceEntryName(view.getId()).substring(9));
 
@@ -148,9 +149,16 @@ public class MainActivity extends AppCompatActivity {
             toast.show();
             pointsctr++;
             quizNumber++;
-            
+
             scoreTV.setText(pointsctr + "/4");
             quizNumberTV.setText(quizNumber + "/4");
+
+            image1.setClickable(false);
+            image2.setClickable(false);
+            image3.setClickable(false);
+            image4.setClickable(false);
+
+            selectedImage.setImageResource(R.drawable.correct);
 
 
         }else{
