@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Question> questions = new ArrayList<>();
     Question currQuestion;
     int quizNumber = 1;
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Ensure that correct answer is never in the same place at startup
         Random random = new Random();
-        int position = random.nextInt(4) + 1;
+        position = random.nextInt(4) + 1;
 
         Log.i(TAG, "Selected position :" + position);
 
@@ -128,7 +129,11 @@ public class MainActivity extends AppCompatActivity {
 
         ImageButton clickedimage = (ImageButton) findViewById(view.getId());
 
-        Log.i(TAG, " Clicked me!: " + view.getId() );
+        int chosenPosition = Integer.parseInt(getResources().getResourceEntryName(view.getId()).substring(9));
+
+        
+
+        Log.i(TAG, "imageClick(): " + chosenPosition);
 
     }
 }
