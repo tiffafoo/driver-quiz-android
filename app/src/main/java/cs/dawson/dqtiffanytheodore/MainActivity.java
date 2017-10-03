@@ -172,18 +172,8 @@ public class MainActivity extends AppCompatActivity {
 
         int chosenPosition = Integer.parseInt(getResources().getResourceEntryName(view.getId()).substring(9));
 
-        Context context = getApplicationContext();
-        CharSequence text = "Correct";
-        CharSequence text2 = "wrong";
-        int duration = Toast.LENGTH_SHORT;
-
-
-
-
         if(chosenPosition==position){
 
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
 
             //increment and update correct answer counter views
             rightPointsCtr++;
@@ -254,14 +244,9 @@ public class MainActivity extends AppCompatActivity {
                attempts++;
            }
 
-
-
-            Toast toast = Toast.makeText(context, text2, duration);
-            toast.show();
+;
         }
-
-
-
+        
         Log.i(TAG, "imageClick(): " + chosenPosition);
 
     }
