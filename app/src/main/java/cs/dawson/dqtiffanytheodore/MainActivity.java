@@ -1,5 +1,6 @@
 package cs.dawson.dqtiffanytheodore;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,13 +26,14 @@ import cs.dawson.dqtiffanytheodore.entities.Question;
  */
 public class MainActivity extends AppCompatActivity {
     String TAG = "MainActivity Class: "; // tag for Logging
-    TextView quizNumberTV, definitionTV;
+    TextView quizNumberTV, definitionTV, scoreTV;
     Button hintButton, aboutButton, nextButton;
     ImageButton image1, image2, image3, image4;
     ArrayList<Question> questions = new ArrayList<>();
     Question currQuestion;
     int quizNumber = 1;
     int position;
+    int pointsctr = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         // Get handle to fields
         quizNumberTV = (TextView) findViewById(R.id.textViewQuizNumber);
         definitionTV = (TextView) findViewById(R.id.textViewDefinition);
+        scoreTV = (TextView) findViewById(R.id.textViewScore);
 
         hintButton = (Button) findViewById(R.id.buttonHint);
         aboutButton = (Button) findViewById(R.id.buttonAbout);
@@ -131,7 +135,30 @@ public class MainActivity extends AppCompatActivity {
 
         int chosenPosition = Integer.parseInt(getResources().getResourceEntryName(view.getId()).substring(9));
 
-        
+        Context context = getApplicationContext();
+        CharSequence text = "Correct";
+        CharSequence text2 = "wrong";
+        int duration = Toast.LENGTH_SHORT;
+
+
+
+
+        if(chosenPosition==position){
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            pointsctr++;
+            quizNumber++;
+            
+            scoreTV.setText(pointsctr + "/4");
+            quizNumberTV.setText(quizNumber + "/4");
+
+
+        }else{
+            Toast toast = Toast.makeText(context, text2, duration);
+            toast.show();
+        }
+
+
 
         Log.i(TAG, "imageClick(): " + chosenPosition);
 
