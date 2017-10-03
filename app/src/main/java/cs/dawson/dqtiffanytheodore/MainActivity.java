@@ -1,13 +1,13 @@
 package cs.dawson.dqtiffanytheodore;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,14 +26,17 @@ import cs.dawson.dqtiffanytheodore.entities.Question;
  */
 public class MainActivity extends AppCompatActivity {
     String TAG = "MainActivity Class: "; // tag for Logging
-    TextView quizNumberTV, definitionTV, scoreTV;
+    TextView quizNumberTV, definitionTV, correctScoresTV, incorrectScoresTV;
     Button hintButton, aboutButton, nextButton;
     ImageButton image1, image2, image3, image4;
     ArrayList<Question> questions = new ArrayList<>();
     Question currQuestion;
     int quizNumber = 1;
     int position;
-    int pointsctr = 0;
+    int rightPointsCtr = 0;
+    int wrongPointsCtr = 0;
+    int attempts = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
         // Get handle to fields
         quizNumberTV = (TextView) findViewById(R.id.textViewQuizNumber);
         definitionTV = (TextView) findViewById(R.id.textViewDefinition);
-        scoreTV = (TextView) findViewById(R.id.textViewScore);
+        correctScoresTV = (TextView) findViewById(R.id.textViewScore);
+        incorrectScoresTV = (TextView) findViewById(R.id.tvIncorrectScore);
 
         hintButton = (Button) findViewById(R.id.buttonHint);
         aboutButton = (Button) findViewById(R.id.buttonAbout);
@@ -145,23 +149,81 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(chosenPosition==position){
+
             Toast toast = Toast.makeText(context, text, duration);
             toast.show();
-            pointsctr++;
+
+            //increment and update correct answer counter views
+            rightPointsCtr++;
             quizNumber++;
+            correctScoresTV.setText(Integer.toString(rightPointsCtr));
+            quizNumberTV.setText(Integer.toString(quizNumber));
 
-            scoreTV.setText(pointsctr + "/4");
-            quizNumberTV.setText(quizNumber + "/4");
-
+            //disable all images
             image1.setClickable(false);
             image2.setClickable(false);
             image3.setClickable(false);
             image4.setClickable(false);
 
+
+            //alter image to show user answer is oorrect
             selectedImage.setImageResource(R.drawable.correct);
+
+            //enable next button
+            nextButton.setVisibility(View.VISIBLE);
+            nextButton.setEnabled(true);
 
 
         }else{
+
+           if(attempts>1){
+               //increment and update incorrect answer counter views
+               wrongPointsCtr++;
+               quizNumber++;
+               incorrectScoresTV.setText(Integer.toString(wrongPointsCtr));
+               quizNumberTV.setText(Integer.toString(quizNumber));
+
+               //disable all images
+               image1.setClickable(false);
+               image2.setClickable(false);
+               image3.setClickable(false);
+               image4.setClickable(false);
+
+               //alter image to show user answer is oorrect
+               selectedImage.setImageResource(R.drawable.incorrect);
+
+               //indicate to user which answer is the correct one
+               switch (position){
+                   case 1: image1.setBackgroundColor(Color.GREEN);
+                       break;
+                   case 2: image2.setBackgroundColor(Color.GREEN);
+                       break;
+                   case 3: image3.setBackgroundColor(Color.GREEN);
+                       break;
+                   case 4: image4.setBackgroundColor(Color.GREEN);
+                       break;
+
+               }
+
+               //enable next button
+               nextButton.setVisibility(View.VISIBLE);
+               nextButton.setEnabled(true);
+
+
+           }else {
+
+               //disable selected image
+               selectedImage.setClickable(false);
+
+               //alter image to show user answer is oorrect
+               selectedImage.setImageResource(R.drawable.incorrect);
+
+               //increment attempts
+               attempts++;
+           }
+
+
+
             Toast toast = Toast.makeText(context, text2, duration);
             toast.show();
         }

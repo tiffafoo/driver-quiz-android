@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -39,14 +40,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/score"
+                android:text="@string/correct"
                 android:textSize="36sp" />
 
             <TextView
                 android:id="@+id/textViewScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="9"
+                android:layout_weight="4"
+                android:textSize="36sp" />
+
+            <TextView
+                android:id="@+id/tvIncorrectScoreText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/incorrect"
+                android:textSize="36sp" />
+
+            <TextView
+                android:id="@+id/tvIncorrectScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:textSize="36sp" />
 
         </LinearLayout>
@@ -178,8 +194,10 @@
             android:id="@+id/buttonCheckedAnswer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:text="@string/checked_answer"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:visibility="invisible" />
 
     </LinearLayout>
 </ScrollView>
