@@ -3,6 +3,7 @@ package cs.dawson.dqtiffanytheodore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     String TAG = "DQ"; // tag for Logging
     TextView quizNumberTV, definitionTV;
     Button hintButton, aboutButton, nextButton;
-    ImageView image1, image2, image3, image4;
+    ImageButton image1, image2, image3, image4;
     ArrayList<Question> questions = new ArrayList<>();
     Question currQuestion;
     int quizNumber = 1;
@@ -41,10 +42,10 @@ public class MainActivity extends AppCompatActivity {
         aboutButton = (Button) findViewById(R.id.buttonAbout);
         nextButton = (Button) findViewById(R.id.buttonCheckedAnswer);
 
-        image1 = (ImageView) findViewById(R.id.imageView1);
-        image2 = (ImageView) findViewById(R.id.imageView2);
-        image3 = (ImageView) findViewById(R.id.imageView3);
-        image4 = (ImageView) findViewById(R.id.imageView4);
+        image1 = (ImageButton) findViewById(R.id.imageView1);
+        image2 = (ImageButton) findViewById(R.id.imageView2);
+        image3 = (ImageButton) findViewById(R.id.imageView3);
+        image4 = (ImageButton) findViewById(R.id.imageView4);
 
         // Initiate questions
         setQuestions();
