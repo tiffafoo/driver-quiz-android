@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="cs.dawson.dqtiffanytheodore.MainActivity"
-    android:weightSum="1"
     android:orientation="vertical">
 
     <GridLayout
@@ -14,15 +13,19 @@
 
         <TextView
             android:id="@+id/textViewQuizNumber"
-            android:layout_width="194dp"
+            android:layout_width="246dp"
             android:layout_height="wrap_content"
-            android:text="@string/quiz_number" />
+            android:text="@string/quiz_number"
+            android:textSize="36sp" />
 
         <TextView
             android:id="@+id/textViewScore"
             android:layout_width="191dp"
             android:layout_height="wrap_content"
-            android:text="@string/score" />
+            android:layout_column="2"
+            android:text="@string/score"
+            android:textSize="36sp" />
+
     </GridLayout>
 
     <GridLayout
@@ -31,75 +34,83 @@
 
         <TextView
             android:id="@+id/textViewInstructions"
-            android:layout_width="195dp"
+            android:layout_width="413dp"
             android:layout_height="wrap_content"
-            android:text="@string/instruction" />
+            android:text="@string/instruction"
+            android:textSize="36sp" />
 
         <TextView
             android:id="@+id/textViewDefinition"
-            android:layout_width="207dp"
+            android:layout_width="576dp"
             android:layout_height="wrap_content"
             android:layout_column="4"
             android:layout_row="0"
-            android:text="@string/definition" />
-    </GridLayout>
-
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="299dp">
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="193dp"
-            android:layout_height="157dp"
-            android:layout_column="0"
-            android:layout_row="0"
-            app:srcCompat="@drawable/sign1" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="192dp"
-            android:layout_height="157dp"
-            android:layout_column="1"
-            android:layout_row="0"
-            app:srcCompat="@drawable/sign2" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="192dp"
-            android:layout_height="157dp"
-            android:layout_column="0"
-            android:layout_row="1"
-            app:srcCompat="@drawable/sign3" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="192dp"
-            android:layout_height="157dp"
-            android:layout_column="1"
-            android:layout_row="1"
-            app:srcCompat="@drawable/sign4" />
-
+            android:text="@string/definition"
+            android:textSize="36sp" />
     </GridLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="1">
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/sign1" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/sign2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/sign3" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/sign4" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2">
 
         <Button
             android:id="@+id/buttonAbout"
-            android:layout_width="157dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/about"
-            android:layout_weight="0.26" />
+            android:textSize="30sp" />
 
         <Button
             android:id="@+id/buttonHint"
-            android:layout_width="117dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/hint"
-            android:layout_weight="0.73" />
+            android:textSize="30sp" />
 
     </LinearLayout>
 
@@ -107,6 +118,7 @@
         android:id="@+id/buttonCheckedAnswer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/checked_answer" />
+        android:text="@string/checked_answer"
+        android:textSize="30sp" />
 
 </LinearLayout>
