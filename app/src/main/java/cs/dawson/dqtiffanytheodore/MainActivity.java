@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     Button hintButton, aboutButton, nextButton;
     ImageButton image1, image2, image3, image4;
     ArrayList<Question> questions = new ArrayList<>();
+    ArrayList<Question> usedQuestions = new ArrayList<>();
     Question currQuestion;
     int quizNumber = 1;
     int position;
@@ -58,47 +59,76 @@ public class MainActivity extends AppCompatActivity {
         image3 = (ImageButton) findViewById(R.id.imageView3);
         image4 = (ImageButton) findViewById(R.id.imageView4);
 
-        // Initiate questions
-        setQuestions();
 
-        // Initialize layout
-        currQuestion = getRandomQuestion();
-        definitionTV.setText(currQuestion.getDefinition());
-        quizNumberTV.setText(Integer.toString(quizNumber));
+        if (savedInstanceState != null) {
+            // get the saved values from the Bundle
+            quizNumber = savedInstanceState.getInt("quizNumber");
+            position = savedInstanceState.getInt("position");
+            rightPointsCtr = savedInstanceState.getInt("rightPointsCtr");
+            wrongPointsCtr = savedInstanceState.getInt("wrongPointsCtr");
+            attempts = savedInstanceState.getInt("attempts");
 
-        //Ensure that correct answer is never in the same place at startup
-        Random random = new Random();
-        position = random.nextInt(4) + 1;
+            quizNumberTV.setText(quizNumber);
+            correctScoresTV.setText(rightPointsCtr);
 
-        Log.i(TAG, "Selected position :" + position);
-
-        switch(position){
-            case 1:
-                image1.setImageResource(currQuestion.getImageLink());
-                image2.setImageResource(getRandomQuestion().getImageLink());
-                image3.setImageResource(getRandomQuestion().getImageLink());
-                image4.setImageResource(getRandomQuestion().getImageLink());
-                break;
-            case 2:
-                image2.setImageResource(currQuestion.getImageLink());
-                image1.setImageResource(getRandomQuestion().getImageLink());
-                image3.setImageResource(getRandomQuestion().getImageLink());
-                image4.setImageResource(getRandomQuestion().getImageLink());
-                break;
-            case 3:
-                image3.setImageResource(currQuestion.getImageLink());
-                image2.setImageResource(getRandomQuestion().getImageLink());
-                image1.setImageResource(getRandomQuestion().getImageLink());
-                image4.setImageResource(getRandomQuestion().getImageLink());
-                break;
-            case 4:
-                image4.setImageResource(currQuestion.getImageLink());
-                image2.setImageResource(getRandomQuestion().getImageLink());
-                image3.setImageResource(getRandomQuestion().getImageLink());
-                image1.setImageResource(getRandomQuestion().getImageLink());
-                break;
+            //temporary
+            setQuestions();
+            image1.setImageResource(getRandomQuestion().getImageLink());
+            image2.setImageResource(getRandomQuestion().getImageLink());
+            image3.setImageResource(getRandomQuestion().getImageLink());
+            image4.setImageResource(getRandomQuestion().getImageLink());
 
         }
+        else{
+
+            // Initiate questions
+            setQuestions();
+
+            // Initialize layout
+            currQuestion = getRandomQuestion();
+            definitionTV.setText(currQuestion.getDefinition());
+            quizNumberTV.setText(Integer.toString(quizNumber));
+
+            //Ensure that correct answer is never in the same place at startup
+            Random random = new Random();
+            position = random.nextInt(4) + 1;
+
+            Log.i(TAG, "Selected position :" + position);
+
+            switch(position){
+                case 1:
+                    image1.setImageResource(currQuestion.getImageLink());
+                    image2.setImageResource(getRandomQuestion().getImageLink());
+                    image3.setImageResource(getRandomQuestion().getImageLink());
+                    image4.setImageResource(getRandomQuestion().getImageLink());
+                    break;
+                case 2:
+                    image2.setImageResource(currQuestion.getImageLink());
+                    image1.setImageResource(getRandomQuestion().getImageLink());
+                    image3.setImageResource(getRandomQuestion().getImageLink());
+                    image4.setImageResource(getRandomQuestion().getImageLink());
+                    break;
+                case 3:
+                    image3.setImageResource(currQuestion.getImageLink());
+                    image2.setImageResource(getRandomQuestion().getImageLink());
+                    image1.setImageResource(getRandomQuestion().getImageLink());
+                    image4.setImageResource(getRandomQuestion().getImageLink());
+                    break;
+                case 4:
+                    image4.setImageResource(currQuestion.getImageLink());
+                    image2.setImageResource(getRandomQuestion().getImageLink());
+                    image3.setImageResource(getRandomQuestion().getImageLink());
+                    image1.setImageResource(getRandomQuestion().getImageLink());
+                    break;
+
+            }
+
+
+        }
+
+
+
+
     }
 
     /**
@@ -131,7 +161,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private Question getRandomQuestion() {
         Random random = new Random();
-        return questions.remove(random.nextInt(questions.size()));
+        Question question = questions.remove(random.nextInt(questions.size()));
+        usedQuestions.add(question);
+        return question;
     }
 
     public void imageClick(View view){
@@ -233,4 +265,16 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "imageClick(): " + chosenPosition);
 
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.d(TAG, "onSaveInstanceState()");
+        savedInstanceState.putInt("quizNumber", quizNumber);
+        savedInstanceState.putInt("position", position);
+        savedInstanceState.putInt("rightPointsCtr", rightPointsCtr);
+        savedInstanceState.putInt("wrongPointsCtr", wrongPointsCtr);
+        savedInstanceState.putInt("attempts", attempts);
+    }
+
 }
