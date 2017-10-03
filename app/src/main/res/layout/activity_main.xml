@@ -73,6 +73,7 @@
                 android:adjustViewBounds="true"
                 android:padding="20dp"
                 android:scaleType="fitCenter"
+                android:onClick="imageClick"
                 app:srcCompat="@drawable/sign1" />
 
 
@@ -88,6 +89,7 @@
                 android:adjustViewBounds="true"
                 android:padding="20dp"
                 android:scaleType="fitCenter"
+                android:onClick="imageClick"
                 app:srcCompat="@drawable/sign2" />
 
         </LinearLayout>
@@ -110,6 +112,7 @@
                 android:adjustViewBounds="true"
                 android:padding="20dp"
                 android:scaleType="fitCenter"
+                android:onClick="imageClick"
                 app:srcCompat="@drawable/sign3" />
 
             <ImageButton
@@ -124,6 +127,7 @@
                 android:adjustViewBounds="true"
                 android:padding="20dp"
                 android:scaleType="fitCenter"
+                android:onClick="imageClick"
                 app:srcCompat="@drawable/sign4" />
 
         </LinearLayout>

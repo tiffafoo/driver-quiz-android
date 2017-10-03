@@ -2,6 +2,8 @@ package cs.dawson.dqtiffanytheodore;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,7 +23,7 @@ import cs.dawson.dqtiffanytheodore.entities.Question;
  * @author Theodore Accos-Thomas <theoathomas>
  */
 public class MainActivity extends AppCompatActivity {
-    String TAG = "DQ"; // tag for Logging
+    String TAG = "MainActivity Class: "; // tag for Logging
     TextView quizNumberTV, definitionTV;
     Button hintButton, aboutButton, nextButton;
     ImageButton image1, image2, image3, image4;
@@ -53,10 +55,40 @@ public class MainActivity extends AppCompatActivity {
         // Initialize layout
         currQuestion = getRandomQuestion();
         definitionTV.setText(currQuestion.getDefinition());
-        image1.setImageResource(currQuestion.getImageLink());
-        image2.setImageResource(getRandomQuestion().getImageLink());
-        image3.setImageResource(getRandomQuestion().getImageLink());
-        image4.setImageResource(getRandomQuestion().getImageLink());
+
+        //Ensure that correct answer is never in the same place at startup
+        Random random = new Random();
+        int position = random.nextInt(4) + 1;
+
+        Log.i(TAG, "Selected position :" + position);
+
+        switch(position){
+            case 1:
+                image1.setImageResource(currQuestion.getImageLink());
+                image2.setImageResource(getRandomQuestion().getImageLink());
+                image3.setImageResource(getRandomQuestion().getImageLink());
+                image4.setImageResource(getRandomQuestion().getImageLink());
+                break;
+            case 2:
+                image2.setImageResource(currQuestion.getImageLink());
+                image1.setImageResource(getRandomQuestion().getImageLink());
+                image3.setImageResource(getRandomQuestion().getImageLink());
+                image4.setImageResource(getRandomQuestion().getImageLink());
+                break;
+            case 3:
+                image3.setImageResource(currQuestion.getImageLink());
+                image2.setImageResource(getRandomQuestion().getImageLink());
+                image1.setImageResource(getRandomQuestion().getImageLink());
+                image4.setImageResource(getRandomQuestion().getImageLink());
+                break;
+            case 4:
+                image4.setImageResource(currQuestion.getImageLink());
+                image2.setImageResource(getRandomQuestion().getImageLink());
+                image3.setImageResource(getRandomQuestion().getImageLink());
+                image1.setImageResource(getRandomQuestion().getImageLink());
+                break;
+
+        }
     }
 
     /**
@@ -64,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
      * images from res/drawable
      */
     private void setQuestions() {
+        //temporary
+        questions.clear();
         questions.add(new Question(R.drawable.sign1, getResources().getString(R.string.definition_sign1)));
         questions.add(new Question(R.drawable.sign2, getResources().getString(R.string.definition_sign2)));
         questions.add(new Question(R.drawable.sign3, getResources().getString(R.string.definition_sign3)));
@@ -87,7 +121,14 @@ public class MainActivity extends AppCompatActivity {
      */
     private Question getRandomQuestion() {
         Random random = new Random();
+        return questions.remove(random.nextInt(questions.size()));
+    }
 
-        return questions.get(random.nextInt(questions.size()));
+    public void imageClick(View view){
+
+        ImageButton clickedimage = (ImageButton) findViewById(view.getId());
+
+        Log.i(TAG, " Clicked me!: " + view.getId() );
+
     }
 }
