@@ -1,156 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context="cs.dawson.dqtiffanytheodore.MainActivity"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <GridLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="cs.dawson.dqtiffanytheodore.MainActivity">
 
-        <TextView
-            android:id="@+id/textViewQuizNumber"
-            android:layout_width="246dp"
-            android:layout_height="wrap_content"
-            android:text="@string/quiz_number"
-            android:textSize="36sp" />
-
-        <TextView
-            android:id="@+id/textViewScore"
-            android:layout_width="191dp"
-            android:layout_height="wrap_content"
-            android:layout_column="2"
-            android:text="@string/score"
-            android:textSize="36sp" />
-
-    </GridLayout>
-
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/textViewInstructions"
-            android:layout_width="413dp"
-            android:layout_height="wrap_content"
-            android:text="@string/instruction"
-            android:textSize="36sp" />
-
-        <TextView
-            android:id="@+id/textViewDefinition"
-            android:layout_width="576dp"
-            android:layout_height="wrap_content"
-            android:layout_column="4"
-            android:layout_row="0"
-            android:text="@string/definition"
-            android:textSize="36sp" />
-    </GridLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-
-        <ImageButton
-            android:id="@+id/imageView1"
+        <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:padding="20dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/sign1" />
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/textViewQuizNumber"
+                android:layout_width="246dp"
+                android:layout_height="wrap_content"
+                android:text="@string/quiz_number"
+                android:textSize="36sp" />
 
-        <ImageButton
-            android:id="@+id/imageView2"
+            <TextView
+                android:id="@+id/textViewScore"
+                android:layout_width="191dp"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:text="@string/score"
+                android:textSize="36sp" />
+
+        </GridLayout>
+
+        <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:padding="20dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/sign2" />
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/textViewInstructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/instruction"
+                android:textSize="36sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
+            <TextView
+                android:id="@+id/textViewDefinition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_row="1"
+                android:text="@string/definition"
+                android:textSize="18sp" />
+        </GridLayout>
 
-        <ImageButton
-            android:id="@+id/imageView3"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:padding="20dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/sign3" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-        <ImageButton
-            android:id="@+id/imageView4"
+
+            <ImageButton
+                android:id="@+id/imageView1"
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/sign1" />
+
+
+            <ImageButton
+                android:id="@+id/imageView2"
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/sign2" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="0dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:padding="20dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/sign4" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
 
-    </LinearLayout>
+            <ImageButton
+                android:id="@+id/imageView3"
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/sign3" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2">
+            <ImageButton
+                android:id="@+id/imageView4"
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:padding="20dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/sign4" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/buttonAbout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/about"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/buttonHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/hint"
+                android:textSize="30sp" />
+
+        </LinearLayout>
 
         <Button
-            android:id="@+id/buttonAbout"
+            android:id="@+id/buttonCheckedAnswer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/about"
-            android:textSize="30sp" />
-
-        <Button
-            android:id="@+id/buttonHint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/hint"
+            android:text="@string/checked_answer"
             android:textSize="30sp" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/buttonCheckedAnswer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/checked_answer"
-        android:textSize="30sp" />
-
-</LinearLayout>
+</ScrollView>
