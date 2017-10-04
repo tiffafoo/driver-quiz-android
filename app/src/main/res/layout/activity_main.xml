@@ -18,37 +18,37 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="20">
-
-
             <TextView
-                android:id="@+id/textViewQuizNumberText"
+                android:id="@+id/tvQuizNumberText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/quiz_number"
-                android:textSize="36sp" />
+                android:text="@string/quiz_number_text"
+                android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/textViewQuizNumber"
+                android:id="@+id/tvQuizNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="9"
-                android:textSize="36sp" />
+                android:text="@integer/quiz_number"
+                android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/textViewScoreText"
+                android:id="@+id/tvCorrectScoreText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/correct"
-                android:textSize="36sp" />
+                android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/textViewScore"
+                android:id="@+id/tvCorrectScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:textSize="36sp" />
+                android:text="@integer/correct_score"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvIncorrectScoreText"
@@ -56,14 +56,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/incorrect"
-                android:textSize="36sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvIncorrectScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:textSize="36sp" />
+                android:text="@integer/incorrect_score"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -72,19 +73,20 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textViewInstructions"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvInstructions"
+                android:layout_width="186dp"
                 android:layout_height="wrap_content"
                 android:text="@string/instruction"
-                android:textSize="36sp" />
+                android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/textViewDefinition"
+                android:id="@+id/tvDefinition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_row="1"
+                android:layout_column="1"
+                android:layout_row="0"
                 android:text="@string/definition"
+                android:textColor="@color/colorPrimary"
                 android:textSize="18sp" />
         </GridLayout>
 
@@ -96,14 +98,14 @@
 
 
             <ImageButton
-                android:id="@+id/imageView1"
-                android:layout_width="350dp"
-                android:layout_height="350dp"
+                android:id="@+id/ib1"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="0dp"
-                android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:padding="20dp"
                 android:scaleType="fitCenter"
@@ -113,14 +115,14 @@
 
 
             <ImageButton
-                android:id="@+id/imageView2"
-                android:layout_width="350dp"
-                android:layout_height="350dp"
+                android:id="@+id/ib2"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_weight="1"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="0dp"
-                android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:padding="20dp"
                 android:scaleType="fitCenter"
@@ -136,33 +138,33 @@
             android:weightSum="2">
 
             <ImageButton
-                android:id="@+id/imageView3"
-                android:layout_width="350dp"
-                android:layout_height="350dp"
+                android:id="@+id/ib3"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="0dp"
-                android:layout_weight="1"
                 android:adjustViewBounds="true"
+                android:layout_weight="1"
                 android:padding="20dp"
                 android:scaleType="fitCenter"
                 android:onClick="imageClick"
                 app:srcCompat="@drawable/sign3" />
 
             <ImageButton
-                android:id="@+id/imageView4"
-                android:layout_width="350dp"
-                android:layout_height="350dp"
+                android:id="@+id/ib4"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="0dp"
                 android:layout_weight="1"
+                android:layout_marginTop="0dp"
                 android:adjustViewBounds="true"
+                android:onClick="imageClick"
                 android:padding="20dp"
                 android:scaleType="fitCenter"
-                android:onClick="imageClick"
                 app:srcCompat="@drawable/sign4" />
 
         </LinearLayout>

@@ -1,6 +1,5 @@
 package cs.dawson.dqtiffanytheodore;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -25,9 +23,10 @@ import cs.dawson.dqtiffanytheodore.entities.Question;
  * @author Theodore Accos-Thomas <theoathomas>
  */
 public class MainActivity extends AppCompatActivity {
+    // Global vars
     String TAG = "MainActivity Class: "; // tag for Logging
-    TextView quizNumberTV, definitionTV, correctScoresTV, incorrectScoresTV;
-    Button hintButton, aboutButton, nextButton;
+    TextView tvQuizNumber, tvDefinition, tvCorrectScore, tvIncorrectScore;
+    Button bHint, bAbout, bNext;
     ImageButton image1, image2, image3, image4;
     ArrayList<Question> questions = new ArrayList<>();
     ArrayList<Question> usedQuestions = new ArrayList<>();
@@ -40,19 +39,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Get handle to fields
-        quizNumberTV = (TextView) findViewById(R.id.textViewQuizNumber);
-        definitionTV = (TextView) findViewById(R.id.textViewDefinition);
-        correctScoresTV = (TextView) findViewById(R.id.textViewScore);
-        incorrectScoresTV = (TextView) findViewById(R.id.tvIncorrectScore);
+        // Get handles to fields
+        tvQuizNumber = (TextView) findViewById(R.id.tvQuizNumber);
+        tvDefinition = (TextView) findViewById(R.id.tvDefinition);
+        tvCorrectScore = (TextView) findViewById(R.id.tvCorrectScore);
+        tvIncorrectScore = (TextView) findViewById(R.id.tvIncorrectScore);
 
-        hintButton = (Button) findViewById(R.id.buttonHint);
-        aboutButton = (Button) findViewById(R.id.buttonAbout);
-        nextButton = (Button) findViewById(R.id.buttonCheckedAnswer);
+        bHint = (Button) findViewById(R.id.buttonHint);
+        bAbout = (Button) findViewById(R.id.buttonAbout);
+        bNext = (Button) findViewById(R.id.buttonCheckedAnswer);
 
         image1 = (ImageButton) findViewById(R.id.imageView1);
         image2 = (ImageButton) findViewById(R.id.imageView2);
@@ -61,35 +61,33 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (savedInstanceState != null) {
-            // get the saved values from the Bundle
+            // Get the saved values from the Bundle
             quizNumber = savedInstanceState.getInt("quizNumber");
             position = savedInstanceState.getInt("position");
             rightPointsCtr = savedInstanceState.getInt("rightPointsCtr");
             wrongPointsCtr = savedInstanceState.getInt("wrongPointsCtr");
             attempts = savedInstanceState.getInt("attempts");
 
-            quizNumberTV.setText(quizNumber);
-            correctScoresTV.setText(rightPointsCtr);
+            tvQuizNumber.setText(quizNumber);
+            tvCorrectScore.setText(rightPointsCtr);
 
-            //temporary
+            // Temporary
             setQuestions();
             image1.setImageResource(getRandomQuestion().getImageLink());
             image2.setImageResource(getRandomQuestion().getImageLink());
             image3.setImageResource(getRandomQuestion().getImageLink());
             image4.setImageResource(getRandomQuestion().getImageLink());
 
-        }
-        else{
-
+        } else {
             // Initiate questions
             setQuestions();
 
             // Initialize layout
             currQuestion = getRandomQuestion();
-            definitionTV.setText(currQuestion.getDefinition());
-            quizNumberTV.setText(Integer.toString(quizNumber));
+            tvDefinition.setText(currQuestion.getDefinition());
+            tvQuizNumber.setText(Integer.toString(quizNumber));
 
-            //Ensure that correct answer is never in the same place at startup
+            // Ensure that correct answer is never in the same place at startup
             Random random = new Random();
             position = random.nextInt(4) + 1;
 
@@ -120,15 +118,9 @@ public class MainActivity extends AppCompatActivity {
                     image3.setImageResource(getRandomQuestion().getImageLink());
                     image1.setImageResource(getRandomQuestion().getImageLink());
                     break;
-
+                default: break;
             }
-
-
         }
-
-
-
-
     }
 
     /**
@@ -136,23 +128,23 @@ public class MainActivity extends AppCompatActivity {
      * images from res/drawable
      */
     private void setQuestions() {
-        //temporary
+        // Temporary
         questions.clear();
-        questions.add(new Question(R.drawable.sign1, getResources().getString(R.string.definition_sign1)));
-        questions.add(new Question(R.drawable.sign2, getResources().getString(R.string.definition_sign2)));
-        questions.add(new Question(R.drawable.sign3, getResources().getString(R.string.definition_sign3)));
-        questions.add(new Question(R.drawable.sign4, getResources().getString(R.string.definition_sign4)));
-        questions.add(new Question(R.drawable.sign5, getResources().getString(R.string.definition_sign5)));
-        questions.add(new Question(R.drawable.sign6, getResources().getString(R.string.definition_sign6)));
-        questions.add(new Question(R.drawable.sign7, getResources().getString(R.string.definition_sign7)));
-        questions.add(new Question(R.drawable.sign8, getResources().getString(R.string.definition_sign8)));
-        questions.add(new Question(R.drawable.sign9, getResources().getString(R.string.definition_sign9)));
-        questions.add(new Question(R.drawable.sign10, getResources().getString(R.string.definition_sign10)));
-        questions.add(new Question(R.drawable.sign11, getResources().getString(R.string.definition_sign11)));
-        questions.add(new Question(R.drawable.sign12, getResources().getString(R.string.definition_sign12)));
-        questions.add(new Question(R.drawable.sign13, getResources().getString(R.string.definition_sign13)));
-        questions.add(new Question(R.drawable.sign14, getResources().getString(R.string.definition_sign14)));
-        questions.add(new Question(R.drawable.sign15, getResources().getString(R.string.definition_sign15)));
+        questions.add(new Question(R.drawable.sign1, getResources().getString(R.string.definition1), getResources().getString(R.string.hint1)));
+        questions.add(new Question(R.drawable.sign2, getResources().getString(R.string.definition2), getResources().getString(R.string.hint2)));
+        questions.add(new Question(R.drawable.sign3, getResources().getString(R.string.definition3), getResources().getString(R.string.hint3)));
+        questions.add(new Question(R.drawable.sign4, getResources().getString(R.string.definition4), getResources().getString(R.string.hint4)));
+        questions.add(new Question(R.drawable.sign5, getResources().getString(R.string.definition5), getResources().getString(R.string.hint5)));
+        questions.add(new Question(R.drawable.sign6, getResources().getString(R.string.definition6), getResources().getString(R.string.hint6)));
+        questions.add(new Question(R.drawable.sign7, getResources().getString(R.string.definition7), getResources().getString(R.string.hint7)));
+        questions.add(new Question(R.drawable.sign8, getResources().getString(R.string.definition8), getResources().getString(R.string.hint8)));
+        questions.add(new Question(R.drawable.sign9, getResources().getString(R.string.definition9), getResources().getString(R.string.hint9)));
+        questions.add(new Question(R.drawable.sign10, getResources().getString(R.string.definition10), getResources().getString(R.string.hint10)));
+        questions.add(new Question(R.drawable.sign11, getResources().getString(R.string.definition11), getResources().getString(R.string.hint11)));
+        questions.add(new Question(R.drawable.sign12, getResources().getString(R.string.definition12), getResources().getString(R.string.hint12)));
+        questions.add(new Question(R.drawable.sign13, getResources().getString(R.string.definition13), getResources().getString(R.string.hint13)));
+        questions.add(new Question(R.drawable.sign14, getResources().getString(R.string.definition14), getResources().getString(R.string.hint14)));
+        questions.add(new Question(R.drawable.sign15, getResources().getString(R.string.definition15), getResources().getString(R.string.hint15)));
     }
 
     /**
@@ -178,8 +170,8 @@ public class MainActivity extends AppCompatActivity {
             //increment and update correct answer counter views
             rightPointsCtr++;
             quizNumber++;
-            correctScoresTV.setText(Integer.toString(rightPointsCtr));
-            quizNumberTV.setText(Integer.toString(quizNumber));
+            tvCorrectScore.setText(Integer.toString(rightPointsCtr));
+            tvQuizNumber.setText(Integer.toString(quizNumber));
 
             //disable all images
             image1.setClickable(false);
@@ -192,8 +184,8 @@ public class MainActivity extends AppCompatActivity {
             selectedImage.setImageResource(R.drawable.correct);
 
             //enable next button
-            nextButton.setVisibility(View.VISIBLE);
-            nextButton.setEnabled(true);
+            bNext.setVisibility(View.VISIBLE);
+            bNext.setEnabled(true);
 
 
         }else{
@@ -202,8 +194,8 @@ public class MainActivity extends AppCompatActivity {
                //increment and update incorrect answer counter views
                wrongPointsCtr++;
                quizNumber++;
-               incorrectScoresTV.setText(Integer.toString(wrongPointsCtr));
-               quizNumberTV.setText(Integer.toString(quizNumber));
+               tvIncorrectScore.setText(Integer.toString(wrongPointsCtr));
+               tvQuizNumber.setText(Integer.toString(quizNumber));
 
                //disable all images
                image1.setClickable(false);
@@ -224,12 +216,13 @@ public class MainActivity extends AppCompatActivity {
                        break;
                    case 4: image4.setBackgroundColor(Color.GREEN);
                        break;
+                   default: break;
 
                }
 
                //enable next button
-               nextButton.setVisibility(View.VISIBLE);
-               nextButton.setEnabled(true);
+               bNext.setVisibility(View.VISIBLE);
+               bNext.setEnabled(true);
 
 
            }else {
@@ -243,8 +236,6 @@ public class MainActivity extends AppCompatActivity {
                //increment attempts
                attempts++;
            }
-
-;
         }
         
         Log.i(TAG, "imageClick(): " + chosenPosition);
