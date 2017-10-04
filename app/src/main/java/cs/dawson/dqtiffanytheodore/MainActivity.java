@@ -37,11 +37,10 @@ public class MainActivity extends AppCompatActivity {
     int wrongPointsCtr = 0;
     int attempts = 1;
 
-
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         // Get handles to fields
@@ -58,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         image2 = (ImageButton) findViewById(R.id.imageView2);
         image3 = (ImageButton) findViewById(R.id.imageView3);
         image4 = (ImageButton) findViewById(R.id.imageView4);
-
 
         if (savedInstanceState != null) {
             // Get the saved values from the Bundle
@@ -77,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
             image2.setImageResource(getRandomQuestion().getImageLink());
             image3.setImageResource(getRandomQuestion().getImageLink());
             image4.setImageResource(getRandomQuestion().getImageLink());
-
         } else {
             // Initiate questions
             setQuestions();
@@ -93,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
             Log.i(TAG, "Selected position :" + position);
 
-            switch(position){
+            switch(position) {
                 case 1:
                     image1.setImageResource(currQuestion.getImageLink());
                     image2.setImageResource(getRandomQuestion().getImageLink());
@@ -158,56 +155,54 @@ public class MainActivity extends AppCompatActivity {
         return question;
     }
 
-    public void imageClick(View view){
-
+    /**
+     * Handles an image click, determines the position and
+     * checks if it corresponds to the correct definition
+     * @param view
+     */
+    public void imageClick(View view) {
         ImageButton selectedImage = (ImageButton) findViewById(view.getId());
-
         int chosenPosition = Integer.parseInt(getResources().getResourceEntryName(view.getId()).substring(9));
 
-        if(chosenPosition==position){
-
-
-            //increment and update correct answer counter views
+        if(chosenPosition == position) {
+            // Increment and update correct answer counter views
             rightPointsCtr++;
             quizNumber++;
             tvCorrectScore.setText(Integer.toString(rightPointsCtr));
             tvQuizNumber.setText(Integer.toString(quizNumber));
 
-            //disable all images
+            // Disable all images
             image1.setClickable(false);
             image2.setClickable(false);
             image3.setClickable(false);
             image4.setClickable(false);
 
 
-            //alter image to show user answer is oorrect
+            // Alter image to show user answer is oorrect
             selectedImage.setImageResource(R.drawable.correct);
 
-            //enable next button
+            // Enable next button
             bNext.setVisibility(View.VISIBLE);
             bNext.setEnabled(true);
-
-
-        }else{
-
-           if(attempts>1){
-               //increment and update incorrect answer counter views
+        } else {
+           if(attempts>1) {
+               // Increment and update incorrect answer counter views
                wrongPointsCtr++;
                quizNumber++;
                tvIncorrectScore.setText(Integer.toString(wrongPointsCtr));
                tvQuizNumber.setText(Integer.toString(quizNumber));
 
-               //disable all images
+               // Disable all images
                image1.setClickable(false);
                image2.setClickable(false);
                image3.setClickable(false);
                image4.setClickable(false);
 
-               //alter image to show user answer is oorrect
+               // Alter image to show user answer is oorrect
                selectedImage.setImageResource(R.drawable.incorrect);
 
-               //indicate to user which answer is the correct one
-               switch (position){
+               // Indicate to user which answer is the correct one
+               switch (position) {
                    case 1: image1.setBackgroundColor(Color.GREEN);
                        break;
                    case 2: image2.setBackgroundColor(Color.GREEN);
@@ -217,27 +212,21 @@ public class MainActivity extends AppCompatActivity {
                    case 4: image4.setBackgroundColor(Color.GREEN);
                        break;
                    default: break;
-
                }
-
-               //enable next button
+               // Enable next button
                bNext.setVisibility(View.VISIBLE);
                bNext.setEnabled(true);
-
-
-           }else {
-
-               //disable selected image
+           } else {
+               // Disable selected image
                selectedImage.setClickable(false);
 
-               //alter image to show user answer is oorrect
+               // Alter image to show user answer is oorrect
                selectedImage.setImageResource(R.drawable.incorrect);
 
-               //increment attempts
+               // Increment attempts
                attempts++;
            }
         }
-        
         Log.i(TAG, "imageClick(): " + chosenPosition);
 
     }
@@ -245,7 +234,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
+
         Log.d(TAG, "onSaveInstanceState()");
+
         savedInstanceState.putInt("quizNumber", quizNumber);
         savedInstanceState.putInt("position", position);
         savedInstanceState.putInt("rightPointsCtr", rightPointsCtr);
