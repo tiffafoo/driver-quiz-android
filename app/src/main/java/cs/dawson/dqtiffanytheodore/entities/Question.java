@@ -14,8 +14,8 @@ public class Question {
      * @param definition definition of question
      */
     public Question(int imageLink, String definition) {
-        this.imageLink = imageLink;
-        this.definition = definition;
+        setImageLink(imageLink);
+        setDefinition(definition);
     }
 
     // Getters and Setters
@@ -43,7 +43,16 @@ public class Question {
         Question question = (Question) o;
 
         if (getImageLink() != question.getImageLink()) return false;
-        return getDefinition().equals(question.getDefinition());
+        if (getDefinition() != null ? !getDefinition().equals(question.getDefinition()) : question.getDefinition() != null)
+            return false;
+        return true;
 
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getImageLink();
+        result = 31 * result + (getDefinition() != null ? getDefinition().hashCode() : 0);
+        return result;
     }
 }
