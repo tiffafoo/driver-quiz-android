@@ -1,5 +1,6 @@
 package cs.dawson.dqtiffanytheodore;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,32 +11,38 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 import cs.dawson.dqtiffanytheodore.entities.Question;
 
 /**
  * Driver Quiz App which asks four questions to a user,
  * giving them the choice to select one of four images
- * that correspond to the description.
+ * that correspond to the definition. Each image is also associated
+ * to a definition, found through google search using said definition.
+ *
+ * The user has two attempts for each questions
+ * before having to move to the next question.
+ *
+ * correct, incorrect and attemps should persist (SharedPreferences),
+ * and the layout should be properly responsive (check specs in wiki)
  *
  * @author Tiffany Le-Nguyen <sirMerr>
  * @author Theodore Accos-Thomas <theoathomas>
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     // Global vars
-    String TAG = "MainActivity Class: "; // tag for Logging
-    TextView tvQuizNumber, tvDefinition, tvCorrectScore, tvIncorrectScore;
-    Button bHint, bAbout, bNext;
-    ImageButton image1, image2, image3, image4;
-    ArrayList<Question> questions = new ArrayList<>();
-    ArrayList<Question> usedQuestions = new ArrayList<>();
-    Question currQuestion;
-    int quizNumber = 1;
-    int position;
-    int rightPointsCtr = 0;
-    int wrongPointsCtr = 0;
-    int attempts = 1;
+    private String TAG = "MainActivity Class: "; // tag for Logging
+    private TextView tvQuizNumber, tvDefinition, tvCorrectScore, tvIncorrectScore;
+    private Button bHint, bAbout, bNext;
+    private ImageButton image1, image2, image3, image4;
+    private ArrayList<Question> questions = new ArrayList<>();
+    private ArrayList<Question> usedQuestions = new ArrayList<>();
+    private Question currQuestion;
+    private int quizNumber, position, rightPointsCtr, wrongPointsCtr, attempts;
+    private Set<String> previousScores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +65,12 @@ public class MainActivity extends AppCompatActivity {
         image3 = (ImageButton) findViewById(R.id.imageView3);
         image4 = (ImageButton) findViewById(R.id.imageView4);
 
+
+        setSharedPreferences();
+
         if (savedInstanceState != null) {
             // Get the saved values from the Bundle
-            quizNumber = savedInstanceState.getInt("quizNumber");
             position = savedInstanceState.getInt("position");
-            rightPointsCtr = savedInstanceState.getInt("rightPointsCtr");
-            wrongPointsCtr = savedInstanceState.getInt("wrongPointsCtr");
-            attempts = savedInstanceState.getInt("attempts");
-
             tvQuizNumber.setText(quizNumber);
             tvCorrectScore.setText(rightPointsCtr);
 
@@ -121,11 +126,108 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Set shared preferences. Gets the quiz number
+     * and counters from the shared preferences if available
+     * or the default.
+     */
+    private void setSharedPreferences() {
+        // Get reference to default shared preferences
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+
+        // Assign shared preferences to global var
+        quizNumber = sharedPreferences.getInt("quizNumber", R.integer.quiz_number_default);
+        rightPointsCtr = sharedPreferences.getInt("correctScore", R.integer.correct_score_default);
+        wrongPointsCtr = sharedPreferences.getInt("incorrectScore", R.integer.incorrect_score_default);
+        attempts = sharedPreferences.getInt("attempts", R.integer.attempts_default);
+        previousScores = sharedPreferences.getStringSet("previousScores", new HashSet<String>());
+
+    }
+
+    /**
+     * Called when a shared preference is changed, added, or removed. This
+     * may be called even if a preference is set to its existing value.
+     * <p>
+     * <p>This callback will be run on your main thread.
+     *
+     * @param sharedPreferences The {@link SharedPreferences} that received
+     *                          the change.
+     * @param key               The key of the preference that was changed, added, or
+     */
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+        if (key.equals("quizNumber")) {
+            quizNumber = sharedPreferences.getInt(key, R.integer.quiz_number_default);
+        } else if (key.equals("correctScore")) {
+            rightPointsCtr = sharedPreferences.getInt("correctScore", R.integer.correct_score_default);
+        } else if (key.equals("incorrectScore")) {
+            wrongPointsCtr = sharedPreferences.getInt("incorrectScore", R.integer.incorrect_score_default);
+        } else if (key.equals("attempts")) {
+            attempts = sharedPreferences.getInt("attempts", R.integer.attempts_default);
+        } else if (key.equals("previousScores")) {
+            previousScores = sharedPreferences.getStringSet("previousScores", new HashSet<String>());
+        }
+    }
+
+    /**
+     * Save all values into sharedPreferences
+     */
+    public void saveToSharedPreferences() {
+        // Store values between app instances
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Set the key/value pairs
+        editor.putInt("quizNumber", quizNumber);
+        editor.putInt("correctScore", rightPointsCtr);
+        editor.putInt("incorrectScore", wrongPointsCtr);
+        editor.putInt("attempts", attempts);
+        editor.putStringSet("previousScores", previousScores);
+
+        // Commit the changes
+        editor.commit();
+    }
+
+    /**
+     * Save a key-value pair, where the value
+     * is an int
+     * @param key String
+     * @param value int
+     */
+    public void saveToSharedPreferences(String key, int value) {
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Set the key/value pairs
+        editor.putInt(key, value);
+
+        // Commit changes
+        editor.commit();
+    }
+
+    /**
+     * Save a key-value pair, where the value
+     * is an int
+     * @param key String
+     * @param value int
+     */
+    public void saveToSharedPreferences(String key, Set<String> value) {
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // Set the key/value pairs
+        editor.putStringSet(key, value);
+
+        // Commit changes
+        editor.commit();
+    }
+
+    /**
      * Initiates the questions array with road sign
      * images from res/drawable
      */
     private void setQuestions() {
-        // Temporary
+        // TODO: Remove the hint, we should be firing an intent for a google search
         questions.clear();
         questions.add(new Question(R.drawable.sign1, getResources().getString(R.string.definition1), getResources().getString(R.string.hint1)));
         questions.add(new Question(R.drawable.sign2, getResources().getString(R.string.definition2), getResources().getString(R.string.hint2)));
