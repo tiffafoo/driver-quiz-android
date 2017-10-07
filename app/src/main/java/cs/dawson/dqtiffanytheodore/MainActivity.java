@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         image4 = (ImageButton) findViewById(R.id.ib4);
 
 
+        getSharedPreferences();
+
         if (savedInstanceState != null) {
             // Get the saved values from the Bundle
             quizNumber = savedInstanceState.getInt("quizNumber");
@@ -142,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
      * and counters from the shared preferences if available
      * or the default.
      */
-    private void setSharedPreferences() {
+    private void getSharedPreferences() {
         // Get reference to default shared preferences
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
 
