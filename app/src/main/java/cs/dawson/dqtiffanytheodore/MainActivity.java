@@ -60,10 +60,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         bAbout = (Button) findViewById(R.id.buttonAbout);
         bNext = (Button) findViewById(R.id.buttonCheckedAnswer);
 
-        image1 = (ImageButton) findViewById(R.id.imageView1);
-        image2 = (ImageButton) findViewById(R.id.imageView2);
-        image3 = (ImageButton) findViewById(R.id.imageView3);
-        image4 = (ImageButton) findViewById(R.id.imageView4);
+        image1 = (ImageButton) findViewById(R.id.ib1);
+        image2 = (ImageButton) findViewById(R.id.ib2);
+        image3 = (ImageButton) findViewById(R.id.ib3);
+        image4 = (ImageButton) findViewById(R.id.ib4);
 
 
         setSharedPreferences();
@@ -207,9 +207,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     /**
      * Save a key-value pair, where the value
-     * is an int
+     * is an Set of Strings
      * @param key String
-     * @param value int
+     * @param value Set<String>
      */
     public void saveToSharedPreferences(String key, Set<String> value) {
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
@@ -218,7 +218,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         // Set the key/value pairs
         editor.putStringSet(key, value);
 
-        // Commit changes
+        // Commit changes immediately.
+        // Note: We could use editor.apply() so it's
+        // handled in the background instead.
         editor.commit();
     }
 
