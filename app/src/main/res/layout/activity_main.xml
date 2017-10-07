@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="cs.dawson.dqtiffanytheodore.MainActivity">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,15 +24,12 @@
                 android:layout_weight="1"
                 android:text="@string/quiz_number_text"
                 android:textSize="16sp" />
-
             <TextView
                 android:id="@+id/tvQuizNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="9"
-                android:text="@integer/quiz_number_default"
-                android:textSize="16sp" />
-
+                android:text="@integer/quiz_number_default"/>
             <TextView
                 android:id="@+id/tvCorrectScoreText"
                 android:layout_width="wrap_content"
@@ -41,7 +37,6 @@
                 android:layout_weight="1"
                 android:text="@string/correct"
                 android:textSize="16sp" />
-
             <TextView
                 android:id="@+id/tvCorrectScore"
                 android:layout_width="wrap_content"
@@ -49,7 +44,6 @@
                 android:layout_weight="4"
                 android:text="@integer/correct_score_default"
                 android:textSize="16sp" />
-
             <TextView
                 android:id="@+id/tvIncorrectScoreText"
                 android:layout_width="wrap_content"
@@ -57,7 +51,6 @@
                 android:layout_weight="1"
                 android:text="@string/incorrect"
                 android:textSize="16sp" />
-
             <TextView
                 android:id="@+id/tvIncorrectScore"
                 android:layout_width="wrap_content"
@@ -65,20 +58,16 @@
                 android:layout_weight="4"
                 android:text="@integer/incorrect_score_default"
                 android:textSize="16sp" />
-
         </LinearLayout>
-
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <TextView
                 android:id="@+id/tvInstructions"
                 android:layout_width="186dp"
                 android:layout_height="wrap_content"
                 android:text="@string/instruction"
                 android:textSize="16sp" />
-
             <TextView
                 android:id="@+id/tvDefinition"
                 android:layout_width="wrap_content"
@@ -89,14 +78,11 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp" />
         </GridLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2">
-
-
             <ImageButton
                 android:id="@+id/ib1"
                 android:layout_width="0dp"
@@ -112,8 +98,6 @@
                 android:onClick="imageClick"
                 app:srcCompat="@drawable/sign1"
                 />
-
-
             <ImageButton
                 android:id="@+id/ib2"
                 android:layout_width="0dp"
@@ -128,15 +112,12 @@
                 android:scaleType="fitCenter"
                 android:onClick="imageClick"
                 app:srcCompat="@drawable/sign2" />
-
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2">
-
             <ImageButton
                 android:id="@+id/ib3"
                 android:layout_width="0dp"
@@ -151,7 +132,6 @@
                 android:scaleType="fitCenter"
                 android:onClick="imageClick"
                 app:srcCompat="@drawable/sign3" />
-
             <ImageButton
                 android:id="@+id/ib4"
                 android:layout_width="0dp"
@@ -166,9 +146,7 @@
                 android:padding="20dp"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/sign4" />
-
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -180,8 +158,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/about"
-                android:textSize="30sp" />
-
+                android:textSize="30sp"
+                android:onClick="aboutClick"/>
             <Button
                 android:id="@+id/buttonHint"
                 android:layout_width="match_parent"
@@ -189,9 +167,7 @@
                 android:layout_weight="1"
                 android:text="@string/hint"
                 android:textSize="30sp" />
-
         </LinearLayout>
-
         <Button
             android:id="@+id/buttonCheckedAnswer"
             android:layout_width="match_parent"
@@ -200,6 +176,5 @@
             android:text="@string/checked_answer"
             android:textSize="30sp"
             android:visibility="invisible" />
-
     </LinearLayout>
 </ScrollView>

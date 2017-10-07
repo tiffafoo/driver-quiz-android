@@ -1,6 +1,8 @@
 package cs.dawson.dqtiffanytheodore;
 
 import android.content.SharedPreferences;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -34,14 +37,18 @@ import cs.dawson.dqtiffanytheodore.entities.Question;
  */
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     // Global vars
-    private String TAG = "MainActivity Class: "; // tag for Logging
-    private TextView tvQuizNumber, tvDefinition, tvCorrectScore, tvIncorrectScore;
-    private Button bHint, bAbout, bNext;
-    private ImageButton image1, image2, image3, image4;
-    private ArrayList<Question> questions = new ArrayList<>();
-    private ArrayList<Question> usedQuestions = new ArrayList<>();
-    private Question currQuestion;
-    private int quizNumber, position, rightPointsCtr, wrongPointsCtr, attempts;
+    String TAG = "MainActivity Class: "; // tag for Logging
+    TextView tvQuizNumber, tvDefinition, tvCorrectScore, tvIncorrectScore;
+    Button bHint, bAbout, bNext;
+    ImageButton image1, image2, image3, image4;
+    ArrayList<Question> questions = new ArrayList<>();
+    ArrayList<Question> usedQuestions = new ArrayList<>();
+    Question currQuestion;
+    int quizNumber = 1;
+    int position;
+    int rightPointsCtr = 0;
+    int wrongPointsCtr = 0;
+    int attempts = 1;
     private Set<String> previousScores;
 
     @Override
@@ -49,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        Log.d(TAG, "onCreate()");
 
         // Get handles to fields
         tvQuizNumber = (TextView) findViewById(R.id.tvQuizNumber);
@@ -66,13 +75,16 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         image4 = (ImageButton) findViewById(R.id.ib4);
 
 
-        setSharedPreferences();
-
         if (savedInstanceState != null) {
             // Get the saved values from the Bundle
+            quizNumber = savedInstanceState.getInt("quizNumber");
             position = savedInstanceState.getInt("position");
-            tvQuizNumber.setText(quizNumber);
-            tvCorrectScore.setText(rightPointsCtr);
+            rightPointsCtr = savedInstanceState.getInt("rightPointsCtr");
+            wrongPointsCtr = savedInstanceState.getInt("wrongPointsCtr");
+            attempts = savedInstanceState.getInt("attempts");
+
+            tvQuizNumber.setText(Integer.toString(quizNumber));
+            tvCorrectScore.setText(Integer.toString(rightPointsCtr));
 
             // Temporary
             setQuestions();
@@ -229,23 +241,23 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
      * images from res/drawable
      */
     private void setQuestions() {
-        // TODO: Remove the hint, we should be firing an intent for a google search
+        // Temporary
         questions.clear();
-        questions.add(new Question(R.drawable.sign1, getResources().getString(R.string.definition1), getResources().getString(R.string.hint1)));
-        questions.add(new Question(R.drawable.sign2, getResources().getString(R.string.definition2), getResources().getString(R.string.hint2)));
-        questions.add(new Question(R.drawable.sign3, getResources().getString(R.string.definition3), getResources().getString(R.string.hint3)));
-        questions.add(new Question(R.drawable.sign4, getResources().getString(R.string.definition4), getResources().getString(R.string.hint4)));
-        questions.add(new Question(R.drawable.sign5, getResources().getString(R.string.definition5), getResources().getString(R.string.hint5)));
-        questions.add(new Question(R.drawable.sign6, getResources().getString(R.string.definition6), getResources().getString(R.string.hint6)));
-        questions.add(new Question(R.drawable.sign7, getResources().getString(R.string.definition7), getResources().getString(R.string.hint7)));
-        questions.add(new Question(R.drawable.sign8, getResources().getString(R.string.definition8), getResources().getString(R.string.hint8)));
-        questions.add(new Question(R.drawable.sign9, getResources().getString(R.string.definition9), getResources().getString(R.string.hint9)));
-        questions.add(new Question(R.drawable.sign10, getResources().getString(R.string.definition10), getResources().getString(R.string.hint10)));
-        questions.add(new Question(R.drawable.sign11, getResources().getString(R.string.definition11), getResources().getString(R.string.hint11)));
-        questions.add(new Question(R.drawable.sign12, getResources().getString(R.string.definition12), getResources().getString(R.string.hint12)));
-        questions.add(new Question(R.drawable.sign13, getResources().getString(R.string.definition13), getResources().getString(R.string.hint13)));
-        questions.add(new Question(R.drawable.sign14, getResources().getString(R.string.definition14), getResources().getString(R.string.hint14)));
-        questions.add(new Question(R.drawable.sign15, getResources().getString(R.string.definition15), getResources().getString(R.string.hint15)));
+        questions.add(new Question(R.drawable.sign1, getResources().getString(R.string.definition1)));
+        questions.add(new Question(R.drawable.sign2, getResources().getString(R.string.definition2)));
+        questions.add(new Question(R.drawable.sign3, getResources().getString(R.string.definition3)));
+        questions.add(new Question(R.drawable.sign4, getResources().getString(R.string.definition4)));
+        questions.add(new Question(R.drawable.sign5, getResources().getString(R.string.definition5)));
+        questions.add(new Question(R.drawable.sign6, getResources().getString(R.string.definition6)));
+        questions.add(new Question(R.drawable.sign7, getResources().getString(R.string.definition7)));
+        questions.add(new Question(R.drawable.sign8, getResources().getString(R.string.definition8)));
+        questions.add(new Question(R.drawable.sign9, getResources().getString(R.string.definition9)));
+        questions.add(new Question(R.drawable.sign10, getResources().getString(R.string.definition10)));
+        questions.add(new Question(R.drawable.sign11, getResources().getString(R.string.definition11)));
+        questions.add(new Question(R.drawable.sign12, getResources().getString(R.string.definition12)));
+        questions.add(new Question(R.drawable.sign13, getResources().getString(R.string.definition13)));
+        questions.add(new Question(R.drawable.sign14, getResources().getString(R.string.definition14)));
+        questions.add(new Question(R.drawable.sign15, getResources().getString(R.string.definition15)));
     }
 
     /**
@@ -253,6 +265,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
      * @return Question
      */
     private Question getRandomQuestion() {
+        Log.i(TAG, "getRandomQuestion()");
         Random random = new Random();
         Question question = questions.remove(random.nextInt(questions.size()));
         usedQuestions.add(question);
@@ -266,7 +279,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
      */
     public void imageClick(View view) {
         ImageButton selectedImage = (ImageButton) findViewById(view.getId());
-        int chosenPosition = Integer.parseInt(getResources().getResourceEntryName(view.getId()).substring(9));
+
+        int chosenPosition = Integer.parseInt(getResources().getResourceEntryName(view.getId()).substring(2));
 
         if(chosenPosition == position) {
             // Increment and update correct answer counter views
@@ -332,6 +346,16 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
            }
         }
         Log.i(TAG, "imageClick(): " + chosenPosition);
+
+    }
+
+    public void aboutClick(View view) {
+
+        Log.i(TAG, "aboutClick()");
+
+        //open about page
+        Intent myIntent = new Intent(MainActivity.this, AboutPage.class);
+        startActivity(myIntent);
 
     }
 
