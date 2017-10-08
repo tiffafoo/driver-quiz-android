@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         image3 = (ImageButton) findViewById(R.id.ib3);
         image4 = (ImageButton) findViewById(R.id.ib4);
 
-
         getSharedPreferences();
 
         setQuestions();
@@ -110,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             tvQuizNumber.setText(String.valueOf(quizNumber));
             tvCorrectScore.setText(String.valueOf(correctCtr));
             tvIncorrectScore.setText(String.valueOf(incorrectCtr));
-
         } else {
             // Initialize layout
             currQuestion = getCurrQuestion();
@@ -147,10 +145,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
      */
     private void setCurrQuestions() {
         Log.i(TAG, "setCurrQuestions()");
+
         for (int i = 0; i < 3; i++) {
             Question holder = getRandomQuestion();
 
-            Log.d(TAG, "Random QUestion: " + holder.toString());
             currQuestions.add(holder);
         }
     }
@@ -359,7 +357,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             image4.setClickable(false);
 
             Log.d(TAG, "Set clickable false");
-
 
             // Alter image to show user answer is correct
             selectedImage.setImageResource(R.drawable.correct);
