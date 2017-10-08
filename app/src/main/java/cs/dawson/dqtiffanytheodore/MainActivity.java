@@ -369,6 +369,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             // Enable next button
             bNext.setVisibility(View.VISIBLE);
             bNext.setEnabled(true);
+            bNextVisible = true;
 
             Log.d(TAG, "Enable next");
 
