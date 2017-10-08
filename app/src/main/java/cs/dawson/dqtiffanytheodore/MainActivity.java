@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -42,14 +44,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     Button bHint, bAbout, bNext;
     ImageButton image1, image2, image3, image4;
     ArrayList<Question> questions = new ArrayList<>();
-    ArrayList<Question> usedQuestions = new ArrayList<>();
+    ArrayList<Question> currQuestions = new ArrayList<>();
     Question currQuestion;
-    int quizNumber = 1;
-    int position;
-    int rightPointsCtr = 0;
-    int wrongPointsCtr = 0;
-    int attempts = 1;
-    private Set<String> previousScores;
+    int quizNumber, position, rightPointsCtr, wrongPointsCtr, quizAttempts, attempts = 1;
+    Set<String> previousScores;
+    boolean bNextVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,68 +76,70 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         getSharedPreferences();
 
+        tvCorrectScore.setText(rightPointsCtr);
+        tvQuizNumber.setText(quizNumber);
+        tvIncorrectScore.setText(wrongPointsCtr);
+
         if (savedInstanceState != null) {
             // Get the saved values from the Bundle
-            quizNumber = savedInstanceState.getInt("quizNumber");
             position = savedInstanceState.getInt("position");
-            rightPointsCtr = savedInstanceState.getInt("rightPointsCtr");
-            wrongPointsCtr = savedInstanceState.getInt("wrongPointsCtr");
             attempts = savedInstanceState.getInt("attempts");
+            bNextVisible = savedInstanceState.getBoolean("bNextVisible");
 
-            tvQuizNumber.setText(Integer.toString(quizNumber));
-            tvCorrectScore.setText(Integer.toString(rightPointsCtr));
+            if (bNextVisible) {
+                // Enable next button
+                bNext.setVisibility(View.VISIBLE);
+                bNext.setEnabled(true);
+            }
 
-            // Temporary
-            setQuestions();
-            image1.setImageResource(getRandomQuestion().getImageLink());
-            image2.setImageResource(getRandomQuestion().getImageLink());
-            image3.setImageResource(getRandomQuestion().getImageLink());
-            image4.setImageResource(getRandomQuestion().getImageLink());
+            // Set the images
+            image1.setImageResource(questions.get(savedInstanceState.getInt("image1Index")).getImageLink());
+            image2.setImageResource(questions.get(savedInstanceState.getInt("image2Index")).getImageLink());
+            image3.setImageResource(questions.get(savedInstanceState.getInt("image3Index")).getImageLink());
+            image4.setImageResource(questions.get(savedInstanceState.getInt("image4Index")).getImageLink());
         } else {
             // Initiate questions
             setQuestions();
 
             // Initialize layout
-            currQuestion = getRandomQuestion();
+            currQuestion = getCurrQuestion();
             tvDefinition.setText(currQuestion.getDefinition());
-            tvQuizNumber.setText(Integer.toString(quizNumber));
+            tvQuizNumber.setText(quizNumber);
 
-            // Ensure that correct answer is never in the same place at startup
-            Random random = new Random();
-            position = random.nextInt(4) + 1;
-
-            Log.i(TAG, "Selected position :" + position);
-
-            switch(position) {
-                case 1:
-                    image1.setImageResource(currQuestion.getImageLink());
-                    image2.setImageResource(getRandomQuestion().getImageLink());
-                    image3.setImageResource(getRandomQuestion().getImageLink());
-                    image4.setImageResource(getRandomQuestion().getImageLink());
-                    break;
-                case 2:
-                    image2.setImageResource(currQuestion.getImageLink());
-                    image1.setImageResource(getRandomQuestion().getImageLink());
-                    image3.setImageResource(getRandomQuestion().getImageLink());
-                    image4.setImageResource(getRandomQuestion().getImageLink());
-                    break;
-                case 3:
-                    image3.setImageResource(currQuestion.getImageLink());
-                    image2.setImageResource(getRandomQuestion().getImageLink());
-                    image1.setImageResource(getRandomQuestion().getImageLink());
-                    image4.setImageResource(getRandomQuestion().getImageLink());
-                    break;
-                case 4:
-                    image4.setImageResource(currQuestion.getImageLink());
-                    image2.setImageResource(getRandomQuestion().getImageLink());
-                    image3.setImageResource(getRandomQuestion().getImageLink());
-                    image1.setImageResource(getRandomQuestion().getImageLink());
-                    break;
-                default: break;
-            }
+            // Prepare and display images
+            setCurrQuestions();
+            displayImages();
         }
     }
 
+    /**
+     * Randomizes and displays the images
+     */
+    private void displayImages() {
+        Log.i(TAG, "Display Images");
+
+        ArrayList<Question> questionsHolder = new ArrayList<>();
+
+        questionsHolder.addAll(currQuestions);
+        questionsHolder.add(currQuestion);
+
+        Collections.shuffle(questionsHolder);
+
+        image1.setImageResource(questionsHolder.get(0).getImageLink());
+        image2.setImageResource(questionsHolder.get(1).getImageLink());
+        image3.setImageResource(questionsHolder.get(2).getImageLink());
+        image4.setImageResource(questionsHolder.get(3).getImageLink());
+    }
+    /**
+     * Sets the 3 other current questions
+     * (not the one the user has to guess
+     */
+    private void setCurrQuestions() {
+        Log.i(TAG, "setCurrQuestions()");
+        for (int i = 0; i < 4; i++) {
+            currQuestions.add(getRandomQuestion());
+        }
+    }
     /**
      * Set shared preferences. Gets the quiz number
      * and counters from the shared preferences if available
@@ -152,9 +153,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         quizNumber = sharedPreferences.getInt("quizNumber", R.integer.quiz_number_default);
         rightPointsCtr = sharedPreferences.getInt("correctScore", R.integer.correct_score_default);
         wrongPointsCtr = sharedPreferences.getInt("incorrectScore", R.integer.incorrect_score_default);
-        attempts = sharedPreferences.getInt("attempts", R.integer.attempts_default);
+        quizAttempts = sharedPreferences.getInt("quizAttempts", R.integer.attempts_default);
         previousScores = sharedPreferences.getStringSet("previousScores", new HashSet<String>());
-
     }
 
     /**
@@ -177,10 +177,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         } else if (key.equals("incorrectScore")) {
             wrongPointsCtr = sharedPreferences.getInt("incorrectScore", R.integer.incorrect_score_default);
         } else if (key.equals("attempts")) {
-            attempts = sharedPreferences.getInt("attempts", R.integer.attempts_default);
+            quizAttempts = sharedPreferences.getInt("quizAttempts", R.integer.attempts_default);
         } else if (key.equals("previousScores")) {
             previousScores = sharedPreferences.getStringSet("previousScores", new HashSet<String>());
         }
+
+        tvCorrectScore.setText(rightPointsCtr);
+        tvQuizNumber.setText(quizNumber);
+        tvIncorrectScore.setText(wrongPointsCtr);
     }
 
     /**
@@ -195,11 +199,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         editor.putInt("quizNumber", quizNumber);
         editor.putInt("correctScore", rightPointsCtr);
         editor.putInt("incorrectScore", wrongPointsCtr);
-        editor.putInt("attempts", attempts);
+        editor.putInt("quizAttempts", quizAttempts);
         editor.putStringSet("previousScores", previousScores);
 
         // Commit the changes
         editor.commit();
+
+        // onSharedPreferenceShanged should get called
     }
 
     /**
@@ -243,7 +249,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
      * images from res/drawable
      */
     private void setQuestions() {
-        // Temporary
         questions.clear();
         questions.add(new Question(R.drawable.sign1, getResources().getString(R.string.definition1)));
         questions.add(new Question(R.drawable.sign2, getResources().getString(R.string.definition2)));
@@ -263,15 +268,40 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     /**
-     * Gets a random Question
+     * Gets a random Question and add the index
+     * of the question to the array of ints that we do not want
+     * to be selected
      * @return Question
      */
     private Question getRandomQuestion() {
         Log.i(TAG, "getRandomQuestion()");
+
         Random random = new Random();
-        Question question = questions.remove(random.nextInt(questions.size()));
-        usedQuestions.add(question);
-        return question;
+        int randomIndex = random.nextInt(questions.size());
+
+        Question randomQuestion = questions.get(randomIndex);
+
+        // Make sure the question is not one of the currQuestions
+        while (currQuestions.contains(randomQuestion)) {
+            randomIndex = random.nextInt(questions.size());
+            randomQuestion = questions.get(randomIndex);
+        }
+        currQuestions.add(randomQuestion);
+
+        return randomQuestion;
+    }
+
+    private Question getCurrQuestion() {
+        Log.i(TAG, "getRandomQuestion(): int");
+
+        Random random = new Random();
+        int randomIndex = random.nextInt(questions.size());
+
+        Question randomQuestion = questions.get(randomIndex);
+
+        questions.remove(randomIndex);
+
+        return randomQuestion;
     }
 
     /**
@@ -288,8 +318,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             // Increment and update correct answer counter views
             rightPointsCtr++;
             quizNumber++;
-            tvCorrectScore.setText(Integer.toString(rightPointsCtr));
-            tvQuizNumber.setText(Integer.toString(quizNumber));
+            tvCorrectScore.setText(rightPointsCtr);
+            tvQuizNumber.setText(quizNumber);
 
             // Disable all images
             image1.setClickable(false);
@@ -298,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             image4.setClickable(false);
 
 
-            // Alter image to show user answer is oorrect
+            // Alter image to show user answer is correct
             selectedImage.setImageResource(R.drawable.correct);
 
             // Enable next button
@@ -309,8 +339,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                // Increment and update incorrect answer counter views
                wrongPointsCtr++;
                quizNumber++;
-               tvIncorrectScore.setText(Integer.toString(wrongPointsCtr));
-               tvQuizNumber.setText(Integer.toString(quizNumber));
+               tvIncorrectScore.setText(wrongPointsCtr);
+               tvQuizNumber.setText(quizNumber);
 
                // Disable all images
                image1.setClickable(false);
@@ -347,12 +377,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                attempts++;
            }
         }
+
+        saveToSharedPreferences();
         Log.i(TAG, "imageClick(): " + chosenPosition);
 
     }
 
     public void aboutClick(View view) {
-
         Log.i(TAG, "aboutClick()");
 
         //open about page
@@ -369,8 +400,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         savedInstanceState.putInt("quizNumber", quizNumber);
         savedInstanceState.putInt("position", position);
-        savedInstanceState.putInt("rightPointsCtr", rightPointsCtr);
-        savedInstanceState.putInt("wrongPointsCtr", wrongPointsCtr);
         savedInstanceState.putInt("attempts", attempts);
     }
 
