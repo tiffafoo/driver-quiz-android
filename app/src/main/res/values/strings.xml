@@ -2,11 +2,14 @@
     <string name="app_name">DQTiffanyTheodore</string>
     <string name="quiz_number_text">Question #</string>
     <string name="instruction">Which image matches:</string>
+    <string name="score_text">Score:</string>
+    <string name="score_default">--%</string>
     <string name="about">About</string>
     <string name="hint">Hint</string>
     <string name="correct">Correct: </string>
     <string name="incorrect">Incorrect: </string>
     <string name="checked_answer">Next Question</string>
+    <string name="definition_default">--</string>
     <string name="definition1">Roadway narrows on the right.</string>
     <string name="definition2">No U-Turns allowed.</string>
     <string name="definition3">Maximum Speed Ahead</string>
@@ -24,4 +27,19 @@
     <string name="definition15">School zone.</string>
     <string name="how_to_play">Driver’s quiz about road signs. Click the correct image that matches the description.</string>
     <string name="credits">Credits: Tiffany Le-Nguyen &amp; Theodore Acco - Thomas </string>
+    <string name="state_position" translatable="false">position</string>
+    <string name="state_attempts" translatable="false">attempts</string>
+    <string name="state_quiz_number" translatable="false">quizNumber</string>
+    <string name="state_incorrect_counter" translatable="false">incorrectCtr</string>
+    <string name="state_correct_counter" translatable="false">correctCtr</string>
+    <string name="state_image1_index" translatable="false">image1Index</string>
+    <string name="state_image2_index" translatable="false">image2Index</string>
+    <string name="state_image3_index" translatable="false">image3Index</string>
+    <string name="state_image4_index" translatable="false">image4Index</string>
+    <string name="state_incorrect_score" translatable="false">incorrectScore</string>
+    <string name="state_correct_score" translatable="false">correctScore</string>
+    <string name="pref_quiz_attempts" translatable="false">quizAttempts</string>
+    <string name="pref_previous_scores" translatable="false">previousScores</string>
+    <string name="state_btn_next_visible" translatable="false">bNextVisible</string>
+    <string name="state_curr_question_index" translatable="false">currQuestionIndex</string>
 </resources>

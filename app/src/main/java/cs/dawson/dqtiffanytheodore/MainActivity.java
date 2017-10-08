@@ -37,9 +37,9 @@ import cs.dawson.dqtiffanytheodore.entities.Question;
  */
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     // Global vars
-    final String TAG = "MainActivity Class: "; // tag for Logging
-    final int quizCount = 4;
-    TextView tvQuizNumber, tvDefinition, tvCorrectScore, tvIncorrectScore;
+    static final String TAG = "MainActivity Class: "; // tag for Logging
+    static final int QUIZ_COUNT = 4;
+    TextView tvQuizNumber, tvDefinition, tvCorrectScore, tvIncorrectScore, tvScore;
     Button bHint, bAbout, bNext;
     ImageButton image1, image2, image3, image4;
     ArrayList<Question> questions = new ArrayList<>();
@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         tvDefinition = (TextView) findViewById(R.id.tvDefinition);
         tvCorrectScore = (TextView) findViewById(R.id.tvCorrectScore);
         tvIncorrectScore = (TextView) findViewById(R.id.tvIncorrectScore);
+        tvScore = (TextView) findViewById(R.id.tvScore);
 
         bHint = (Button) findViewById(R.id.buttonHint);
         bAbout = (Button) findViewById(R.id.buttonAbout);
@@ -110,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             tvQuizNumber.setText(String.valueOf(quizNumber));
             tvCorrectScore.setText(String.valueOf(correctCtr));
             tvIncorrectScore.setText(String.valueOf(incorrectCtr));
+            tvScore.setText(String.valueOf(correctCtr/ QUIZ_COUNT *100));
         } else {
             // Initialize layout
             currQuestion = getCurrQuestion();
@@ -343,11 +345,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             // Increment and update correct answer counter views
             Log.d(TAG, "correctCtr: " + correctCtr);
             Log.d(TAG, "totalCorrect: " + totalCorrect);
-            Log.d(TAG, "quizNumber: " + quizNumber);
             correctCtr++;
             totalCorrect++;
-            quizNumber++;
 
+            double score = (double)correctCtr/ QUIZ_COUNT * 100;
+
+            tvScore.setText(String.valueOf(score) + "%");
             tvCorrectScore.setText(String.valueOf(correctCtr));
             tvQuizNumber.setText(String.valueOf(quizNumber));
 
@@ -439,12 +442,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private boolean checkQuizNumber() {
         if (quizNumber >= 4) {
             // TODO: Show replay button
-            previousScores.add(correctCtr/quizCount*100 + "%");
+            previousScores.add((double)correctCtr/ QUIZ_COUNT * 100 + "%");
             saveToSharedPreferences("previousScores", previousScores);
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
     /**
      * Handles an about click, fires an intent to the about page.
