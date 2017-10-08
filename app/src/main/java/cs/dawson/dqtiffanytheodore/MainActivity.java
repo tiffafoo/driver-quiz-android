@@ -40,7 +40,7 @@ import cs.dawson.dqtiffanytheodore.entities.Question;
  */
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     // Global vars
-    String TAG = "MainActivity Class: "; // tag for Logging
+    final String TAG = "MainActivity Class: "; // tag for Logging
     TextView tvQuizNumber, tvDefinition, tvCorrectScore, tvIncorrectScore;
     Button bHint, bAbout, bNext;
     ImageButton image1, image2, image3, image4;
@@ -139,7 +139,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private void setCurrQuestions() {
         Log.i(TAG, "setCurrQuestions()");
         for (int i = 0; i < 4; i++) {
-            currQuestions.add(getRandomQuestion());
+            Question holder = getRandomQuestion();
+
+            Log.d(TAG, "Random QUestion: " + holder.toString());
+            currQuestions.add(holder);
         }
     }
     /**
@@ -288,7 +291,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             randomIndex = random.nextInt(questions.size());
             randomQuestion = questions.get(randomIndex);
         }
-        currQuestions.add(randomQuestion);
 
         return randomQuestion;
     }
@@ -336,6 +338,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             // Enable next button
             bNext.setVisibility(View.VISIBLE);
             bNext.setEnabled(true);
+
+            attempts = 1;
         } else {
            if(attempts>1) {
                // Increment and update incorrect answer counter views
@@ -368,6 +372,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                // Enable next button
                bNext.setVisibility(View.VISIBLE);
                bNext.setEnabled(true);
+
+               attempts = 1;
            } else {
                // Disable selected image
                selectedImage.setClickable(false);
