@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -428,7 +427,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
      * Check if the four questions have been asked
      */
     private void checkQuizNumber() {
-        if (quizNumber >= 4) {
+        if (quizNumber >= QUIZ_COUNT) {
             previousScores.add((double)correctCtr/ QUIZ_COUNT * 100 + "%");
             // TODO: Show replay button
             bNext.setVisibility(View.INVISIBLE);
