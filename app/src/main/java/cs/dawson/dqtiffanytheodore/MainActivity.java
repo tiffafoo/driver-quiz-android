@@ -210,8 +210,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         editor.putInt("quizAttempts", quizAttempts);
         editor.putStringSet("previousScores", previousScores);
 
-        // Commit the changes
-        editor.commit();
+        // We are using apply here because it's fine if
+        // this is in the background as it only affects credits
+        editor.apply();
 
         // onSharedPreferenceShanged should get called
     }
@@ -230,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         editor.putInt(key, value);
 
         // Commit changes
-        editor.commit();
+        editor.apply();
     }
 
     /**
@@ -249,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         // Commit changes immediately.
         // Note: We could use editor.apply() so it's
         // handled in the background instead.
-        editor.commit();
+        editor.apply();
     }
 
     /**
