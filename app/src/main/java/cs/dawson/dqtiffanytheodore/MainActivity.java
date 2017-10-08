@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         getSharedPreferences();
 
+        // These are available through shared preferences
         tvCorrectScore.setText(rightPointsCtr);
         tvQuizNumber.setText(quizNumber);
         tvIncorrectScore.setText(wrongPointsCtr);
