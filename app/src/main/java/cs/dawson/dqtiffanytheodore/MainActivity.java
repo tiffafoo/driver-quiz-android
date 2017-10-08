@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     ImageButton image1, image2, image3, image4;
     ArrayList<Question> questions = new ArrayList<>();
     ArrayList<Question> currQuestions = new ArrayList<>();
-    ArrayList<Question> askedDefinitions = new ArrayList<>();
+    static ArrayList<Question> askedDefinitions = new ArrayList<>();
     static ArrayList<Question> questionsHolder = new ArrayList<>();
     Question currQuestion;
     int quizNumber = 1, position = 1, correctCtr = 0, incorrectCtr = 0, quizAttempts = 0, attempts = 1;
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
         getSharedPreferences();
+
         setQuestions();
 
         if (savedInstanceState != null) {
@@ -214,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         // this is in the background as it only affects credits
         editor.apply();
 
-        // onSharedPreferenceShanged should get called
+        // onSharedPreferenceChanged should get called
     }
 
     /**
@@ -258,22 +259,23 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
      * images from res/drawable
      */
     private void setQuestions() {
-        questions.clear();
-        questions.add(new Question(R.drawable.sign1, getResources().getString(R.string.definition1)));
-        questions.add(new Question(R.drawable.sign2, getResources().getString(R.string.definition2)));
-        questions.add(new Question(R.drawable.sign3, getResources().getString(R.string.definition3)));
-        questions.add(new Question(R.drawable.sign4, getResources().getString(R.string.definition4)));
-        questions.add(new Question(R.drawable.sign5, getResources().getString(R.string.definition5)));
-        questions.add(new Question(R.drawable.sign6, getResources().getString(R.string.definition6)));
-        questions.add(new Question(R.drawable.sign7, getResources().getString(R.string.definition7)));
-        questions.add(new Question(R.drawable.sign8, getResources().getString(R.string.definition8)));
-        questions.add(new Question(R.drawable.sign9, getResources().getString(R.string.definition9)));
-        questions.add(new Question(R.drawable.sign10, getResources().getString(R.string.definition10)));
-        questions.add(new Question(R.drawable.sign11, getResources().getString(R.string.definition11)));
-        questions.add(new Question(R.drawable.sign12, getResources().getString(R.string.definition12)));
-        questions.add(new Question(R.drawable.sign13, getResources().getString(R.string.definition13)));
-        questions.add(new Question(R.drawable.sign14, getResources().getString(R.string.definition14)));
-        questions.add(new Question(R.drawable.sign15, getResources().getString(R.string.definition15)));
+        if (questions.isEmpty()) {
+            questions.add(new Question(R.drawable.sign1, getResources().getString(R.string.definition1)));
+            questions.add(new Question(R.drawable.sign2, getResources().getString(R.string.definition2)));
+            questions.add(new Question(R.drawable.sign3, getResources().getString(R.string.definition3)));
+            questions.add(new Question(R.drawable.sign4, getResources().getString(R.string.definition4)));
+            questions.add(new Question(R.drawable.sign5, getResources().getString(R.string.definition5)));
+            questions.add(new Question(R.drawable.sign6, getResources().getString(R.string.definition6)));
+            questions.add(new Question(R.drawable.sign7, getResources().getString(R.string.definition7)));
+            questions.add(new Question(R.drawable.sign8, getResources().getString(R.string.definition8)));
+            questions.add(new Question(R.drawable.sign9, getResources().getString(R.string.definition9)));
+            questions.add(new Question(R.drawable.sign10, getResources().getString(R.string.definition10)));
+            questions.add(new Question(R.drawable.sign11, getResources().getString(R.string.definition11)));
+            questions.add(new Question(R.drawable.sign12, getResources().getString(R.string.definition12)));
+            questions.add(new Question(R.drawable.sign13, getResources().getString(R.string.definition13)));
+            questions.add(new Question(R.drawable.sign14, getResources().getString(R.string.definition14)));
+            questions.add(new Question(R.drawable.sign15, getResources().getString(R.string.definition15)));
+        }
     }
 
     /**
@@ -299,6 +301,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         return randomQuestion;
     }
 
+    /**
+     * Gets the current question that the
+     * user will have to answer
+     * @return {Question} question
+     */
     private Question getCurrQuestion() {
         Log.i(TAG, "getRandomQuestion(): int");
 
@@ -313,6 +320,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             randomQuestion = questions.get(randomIndex);
         }
 
+        // Add to asked definitions
         askedDefinitions.add(randomQuestion);
 
         return randomQuestion;
@@ -423,14 +431,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
      * Handles an about click, fires an intent to the about page.
      * @param view
      */
-
     public void aboutClick(View view) {
         Log.i(TAG, "aboutClick()");
 
         //open about page
         Intent myIntent = new Intent(MainActivity.this, AboutPage.class);
         startActivity(myIntent);
-
     }
 
     /**
@@ -448,6 +454,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
     @Override
+    /**
+     * Save values to state
+     * @param {Bundle} savedInstanceState
+     */
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
 
