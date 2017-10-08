@@ -35,12 +35,12 @@ The goal of this assignment is to create a driver's quiz about road signs. You w
   * https://testdeconnaissances.saaq.gouv.qc.ca/en/
 
 - [X] Create and use a unique Icon: http://romannurik.github.io/AndroidAssetStudio/icons-launcher.html
-- [ ] When the last question is answered, update the saved scores (keep the last two scores) (SharedPreferences)
+- [X] When the last question is answered, update the saved scores (keep the last two scores) (SharedPreferences)
 - [ ] If the app ends before they finish the questions (n.b. override finish) When the app is started again use shared preferences to return the user to next question and set the counters. You need counters to implement that, along with an array of what questions have been answered.
 
 - [ ] Image Buttons actions:
   - [X] If it is the correct image:
-    - [ ] add one to the correct count, update score, update question counter
+    - [X] add one to the correct count, update score, update question counter
     - [X] make all images not clickable
     - [X] change the image in some way to show it is the correct answer (you may want to try and/or an alternate image that shows the same with a border) see: http://developer.android.com/guide/topics/ui/controls/button.html
     - [X] enable and make visible the next button
