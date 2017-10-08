@@ -81,9 +81,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         if (savedInstanceState != null) {
             // Get the saved values from the Bundle
             quizNumber = savedInstanceState.getInt("quizNumber");
+
             incorrectCtr = savedInstanceState.getInt("incorrectCtr");
             correctCtr = savedInstanceState.getInt("correctCtr");
-            quizNumber = savedInstanceState.getInt("position");
             position = savedInstanceState.getInt("position");
             attempts = savedInstanceState.getInt("attempts");
             bNextVisible = savedInstanceState.getBoolean("bNextVisible");
