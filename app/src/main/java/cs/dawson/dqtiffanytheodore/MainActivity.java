@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     ArrayList<Question> questions = new ArrayList<>();
     ArrayList<Question> currQuestions = new ArrayList<>();
     Question currQuestion;
-    int quizNumber, position, rightPointsCtr, wrongPointsCtr, quizAttempts, attempts = 1;
+    int quizNumber = 1, position = 1, rightPointsCtr = 0, wrongPointsCtr = 0, quizAttempts = 0, attempts = 1;
     Set<String> previousScores;
     boolean bNextVisible = false;
 
@@ -77,13 +77,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         getSharedPreferences();
 
+        Log.d(TAG, "Quiz Number: " + quizNumber);
+
         // These are available through shared preferences
         tvCorrectScore.setText(rightPointsCtr);
-        tvQuizNumber.setText(quizNumber);
         tvIncorrectScore.setText(wrongPointsCtr);
 
         if (savedInstanceState != null) {
             // Get the saved values from the Bundle
+            quizNumber = savedInstanceState.getInt("position");
             position = savedInstanceState.getInt("position");
             attempts = savedInstanceState.getInt("attempts");
             bNextVisible = savedInstanceState.getBoolean("bNextVisible");
@@ -99,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             image2.setImageResource(questions.get(savedInstanceState.getInt("image2Index")).getImageLink());
             image3.setImageResource(questions.get(savedInstanceState.getInt("image3Index")).getImageLink());
             image4.setImageResource(questions.get(savedInstanceState.getInt("image4Index")).getImageLink());
+            tvQuizNumber.setText(quizNumber);
+
         } else {
             // Initiate questions
             setQuestions();
@@ -106,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             // Initialize layout
             currQuestion = getCurrQuestion();
             tvDefinition.setText(currQuestion.getDefinition());
-            tvQuizNumber.setText(quizNumber);
+            tvQuizNumber.setText(Integer.toString(quizNumber));
 
             // Prepare and display images
             setCurrQuestions();
@@ -127,6 +131,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         Collections.shuffle(questionsHolder);
 
+        position = questionsHolder.indexOf(currQuestion) + 1;
+
         image1.setImageResource(questionsHolder.get(0).getImageLink());
         image2.setImageResource(questionsHolder.get(1).getImageLink());
         image3.setImageResource(questionsHolder.get(2).getImageLink());
@@ -138,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
      */
     private void setCurrQuestions() {
         Log.i(TAG, "setCurrQuestions()");
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             Question holder = getRandomQuestion();
 
             Log.d(TAG, "Random QUestion: " + holder.toString());
@@ -155,7 +161,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
 
         // Assign shared preferences to global var
-        quizNumber = sharedPreferences.getInt("quizNumber", R.integer.quiz_number_default);
         rightPointsCtr = sharedPreferences.getInt("correctScore", R.integer.correct_score_default);
         wrongPointsCtr = sharedPreferences.getInt("incorrectScore", R.integer.incorrect_score_default);
         quizAttempts = sharedPreferences.getInt("quizAttempts", R.integer.attempts_default);
@@ -201,7 +206,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         // Set the key/value pairs
-        editor.putInt("quizNumber", quizNumber);
         editor.putInt("correctScore", rightPointsCtr);
         editor.putInt("incorrectScore", wrongPointsCtr);
         editor.putInt("quizAttempts", quizAttempts);
@@ -318,12 +322,21 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         int chosenPosition = Integer.parseInt(getResources().getResourceEntryName(view.getId()).substring(2));
 
+        Log.d(TAG, "Correct position: " + position);
         if(chosenPosition == position) {
+            Log.d(TAG, "Correct position was chosen");
             // Increment and update correct answer counter views
             rightPointsCtr++;
+            Log.d(TAG, "Correct point added");
+
+            Log.d(TAG, "IN HERE quiz numba: " + quizNumber);
             quizNumber++;
+            Log.d(TAG, "Quiz number goes up");
+
             tvCorrectScore.setText(rightPointsCtr);
-            tvQuizNumber.setText(quizNumber);
+            tvQuizNumber.setText(Integer.toString(quizNumber));
+
+            Log.d(TAG, "Set text");
 
             // Disable all images
             image1.setClickable(false);
@@ -331,13 +344,19 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             image3.setClickable(false);
             image4.setClickable(false);
 
+            Log.d(TAG, "Set clickable false");
+
 
             // Alter image to show user answer is correct
             selectedImage.setImageResource(R.drawable.correct);
 
+            Log.d(TAG, "Show correct");
+
             // Enable next button
             bNext.setVisibility(View.VISIBLE);
             bNext.setEnabled(true);
+
+            Log.d(TAG, "Enable next");
 
             attempts = 1;
         } else {
@@ -346,7 +365,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                wrongPointsCtr++;
                quizNumber++;
                tvIncorrectScore.setText(wrongPointsCtr);
-               tvQuizNumber.setText(quizNumber);
+               tvQuizNumber.setText(Integer.toString(quizNumber));
 
                // Disable all images
                image1.setClickable(false);
@@ -386,8 +405,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
            }
         }
 
+        Log.d(TAG, "Save to SharedPreferences");
         saveToSharedPreferences();
-        Log.i(TAG, "imageClick(): " + chosenPosition);
+        Log.i(TAG, "imageClick() position: " + chosenPosition);
 
     }
 
@@ -429,6 +449,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         savedInstanceState.putInt("quizNumber", quizNumber);
         savedInstanceState.putInt("position", position);
         savedInstanceState.putInt("attempts", attempts);
+        savedInstanceState.putBoolean("bNextVisible", bNextVisible);
     }
 
 }
