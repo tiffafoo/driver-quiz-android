@@ -166,7 +166,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/hint"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:onClick="hintClick"/>
         </LinearLayout>
         <Button
             android:id="@+id/buttonCheckedAnswer"

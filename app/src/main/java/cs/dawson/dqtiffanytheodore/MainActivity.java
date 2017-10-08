@@ -1,6 +1,7 @@
 package cs.dawson.dqtiffanytheodore;
 
 import android.content.SharedPreferences;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -384,12 +385,32 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     }
 
+
+    /**
+     * Handles an about click, fires an intent to the about page.
+     * @param view
+     */
+
     public void aboutClick(View view) {
         Log.i(TAG, "aboutClick()");
 
         //open about page
         Intent myIntent = new Intent(MainActivity.this, AboutPage.class);
         startActivity(myIntent);
+
+    }
+
+    /**
+     * Handles an hint click, launches a web search for the current question.
+     * @param view
+     */
+    public void hintClick(View view){
+
+        Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+        intent.putExtra(SearchManager.QUERY, "road sign " + currQuestion.getDefinition());
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
 
     }
 
