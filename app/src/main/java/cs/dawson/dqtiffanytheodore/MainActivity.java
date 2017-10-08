@@ -371,7 +371,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             Log.d(TAG, "Show correct");
 
             // Check if it's question 4
-            if (checkQuizNumber()) {
                 // Enable next button
                 bNext.setVisibility(View.VISIBLE);
                 bNext.setEnabled(true);
@@ -380,7 +379,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 Log.d(TAG, "Enable next");
 
                 attempts = 1;
-            }
         } else {
             // Only first image
            if(attempts>1) {
@@ -400,13 +398,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                selectedImage.setImageResource(R.drawable.incorrect);
 
                // Indicate to user which answer is the correct one
-               if (checkQuizNumber()) {
-                   // Enable next button
-                   bNext.setVisibility(View.VISIBLE);
-                   bNext.setEnabled(true);
 
-                   attempts = 1;
-               }
+               // Enable next button
+               bNext.setVisibility(View.VISIBLE);
+               bNext.setEnabled(true);
+
+               attempts = 1;
+
            } else {
                // Disable selected image
                selectedImage.setClickable(false);
@@ -414,11 +412,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                // Alter image to show user answer is correct
                selectedImage.setImageResource(R.drawable.incorrect);
 
-               if (checkQuizNumber()) {
-                   // Increment attempts
-                   attempts++;
-               }
+               // Increment attempts
+               attempts++;
            }
+           checkQuizNumber();
         }
 
         Log.d(TAG, "Save to SharedPreferences");
@@ -430,15 +427,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     /**
      * Check if the four questions have been asked
      */
-    private boolean checkQuizNumber() {
+    private void checkQuizNumber() {
         if (quizNumber >= 4) {
-            // TODO: Show replay button
             previousScores.add((double)correctCtr/ QUIZ_COUNT * 100 + "%");
+            // TODO: Show replay button
+            bNext.setVisibility(View.INVISIBLE);
+            bNextVisible = false;
             saveToSharedPreferences("previousScores", previousScores);
-            return false;
         }
-
-        return true;
     }
     /**
      * Handles an about click, fires an intent to the about page.
@@ -460,6 +456,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public void nextClick(View view) {
         Resources res = getResources();
         currQuestions.clear();
+        questionsHolder.clear();
         setCurrQuestions();
 
         Log.d(TAG, "questions length: " + currQuestions.size());
@@ -472,13 +469,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         image4.setClickable(true);
 
         switch (position) {
-            case 1: image1.setBackgroundColor(Color.TRANSPARENT);
+            case 1: image1.setBackgroundColor(Color.GRAY);
                 break;
-            case 2: image2.setBackgroundColor(Color.TRANSPARENT);
+            case 2: image2.setBackgroundColor(Color.GRAY);
                 break;
-            case 3: image3.setBackgroundColor(Color.TRANSPARENT);
+            case 3: image3.setBackgroundColor(Color.GRAY);
                 break;
-            case 4: image4.setBackgroundColor(Color.TRANSPARENT);
+            case 4: image4.setBackgroundColor(Color.GRAY);
                 break;
             default: break;
         }
@@ -488,7 +485,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         quizNumber++;
         attempts = res.getInteger(R.integer.attempts_default);
-        position = res.getInteger(R.integer.position_default);
+        position = questionsHolder.indexOf(currQuestion) + 1;
 
         tvQuizNumber.setText(String.valueOf(quizNumber));
         tvDefinition.setText(currQuestion.getDefinition());
