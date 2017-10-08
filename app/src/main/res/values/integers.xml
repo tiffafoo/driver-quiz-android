@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="correct_score">0</integer>
-    <integer name="incorrect_score">0</integer>
-    <integer name="quiz_number">1</integer>
+    <integer name="correct_score_default">0</integer>
+    <integer name="incorrect_score_default">0</integer>
+    <integer name="quiz_number_default">1</integer>
+    <integer name="attempts_default">1</integer>
+    <integer name="position_default">1</integer>
 </resources>

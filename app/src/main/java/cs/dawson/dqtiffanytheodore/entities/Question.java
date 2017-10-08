@@ -1,9 +1,9 @@
 package cs.dawson.dqtiffanytheodore.entities;
 
 /**
- * Created by sirMerr on 2017-09-29.
+ * Question class with the
+ * image link and definition
  */
-
 public class Question {
     private int imageLink;
     private String definition;
@@ -13,6 +13,7 @@ public class Question {
      * @param imageLink link to image
      * @param definition definition of question
      */
+
     public Question(int imageLink, String definition) {
         setImageLink(imageLink);
         setDefinition(definition);
@@ -35,6 +36,7 @@ public class Question {
         this.definition = definition;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -45,8 +47,8 @@ public class Question {
         if (getImageLink() != question.getImageLink()) return false;
         if (getDefinition() != null ? !getDefinition().equals(question.getDefinition()) : question.getDefinition() != null)
             return false;
-        return true;
 
+        return true;
     }
 
     @Override
