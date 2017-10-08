@@ -469,13 +469,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         image4.setClickable(true);
 
         switch (position) {
-            case 1: image1.setBackgroundColor(Color.GRAY);
+            case 1: image1.setBackgroundResource(android.R.drawable.btn_default);
                 break;
-            case 2: image2.setBackgroundColor(Color.GRAY);
+            case 2: image2.setBackgroundResource(android.R.drawable.btn_default);
                 break;
-            case 3: image3.setBackgroundColor(Color.GRAY);
+            case 3: image3.setBackgroundResource(android.R.drawable.btn_default);
                 break;
-            case 4: image4.setBackgroundColor(Color.GRAY);
+            case 4: image4.setBackgroundResource(android.R.drawable.btn_default);
                 break;
             default: break;
         }
