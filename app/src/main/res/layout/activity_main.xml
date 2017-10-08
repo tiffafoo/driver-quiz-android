@@ -206,6 +206,7 @@
             android:enabled="false"
             android:text="@string/checked_answer"
             android:textSize="30sp"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:onClick="nextClick" />
     </LinearLayout>
 </ScrollView>

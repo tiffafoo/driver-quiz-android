@@ -3,6 +3,7 @@ package cs.dawson.dqtiffanytheodore;
 import android.content.SharedPreferences;
 import android.app.SearchManager;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     static ArrayList<Question> askedDefinitions = new ArrayList<>();
     static ArrayList<Question> questionsHolder = new ArrayList<>();
     Question currQuestion;
-    int quizNumber = 1, position = 1, correctCtr = 0, incorrectCtr = 0, quizAttempts = 0, attempts = 1;
+    int quizNumber = 1, position = 1, correctCtr = 0, incorrectCtr = 0, quizAttempts = 1, attempts = 1;
     int totalIncorrect, totalCorrect;
     Set<String> previousScores;
     boolean bNextVisible = false;
@@ -111,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             tvQuizNumber.setText(String.valueOf(quizNumber));
             tvCorrectScore.setText(String.valueOf(correctCtr));
             tvIncorrectScore.setText(String.valueOf(incorrectCtr));
-            tvScore.setText(String.valueOf(correctCtr/ QUIZ_COUNT *100));
+            tvScore.setText(String.valueOf((double)correctCtr/ QUIZ_COUNT *100));
         } else {
             // Initialize layout
             currQuestion = getCurrQuestion();
@@ -163,11 +164,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private void getSharedPreferences() {
         // Get reference to default shared preferences
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        Resources res = getResources();
 
         // Assign shared preferences to global var
-        totalCorrect = sharedPreferences.getInt("correctScore", R.integer.correct_score_default);
-        totalIncorrect = sharedPreferences.getInt("incorrectScore", R.integer.incorrect_score_default);
-        quizAttempts = sharedPreferences.getInt("quizAttempts", R.integer.attempts_default);
+        totalCorrect = sharedPreferences.getInt("correctScore", res.getInteger(R.integer.correct_score_default));
+        totalIncorrect = sharedPreferences.getInt("incorrectScore", res.getInteger(R.integer.incorrect_score_default));
+        quizAttempts = sharedPreferences.getInt("quizAttempts", res.getInteger(R.integer.attempts_default));
         previousScores = sharedPreferences.getStringSet("previousScores", new HashSet<String>());
     }
 
@@ -183,13 +185,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
      */
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Resources res = getResources();
 
         if (key.equals("correctScore")) {
-            totalCorrect = sharedPreferences.getInt("correctScore", R.integer.correct_score_default);
+            totalCorrect = sharedPreferences.getInt("correctScore", res.getInteger(R.integer.correct_score_default));
         } else if (key.equals("incorrectScore")) {
-            totalIncorrect = sharedPreferences.getInt("incorrectScore", R.integer.incorrect_score_default);
+            totalIncorrect = sharedPreferences.getInt("incorrectScore", res.getInteger(R.integer.incorrect_score_default));
         } else if (key.equals("attempts")) {
-            quizAttempts = sharedPreferences.getInt("quizAttempts", R.integer.attempts_default);
+            quizAttempts = sharedPreferences.getInt("quizAttempts", res.getInteger(R.integer.attempts_default));
         } else if (key.equals("previousScores")) {
             previousScores = sharedPreferences.getStringSet("previousScores", new HashSet<String>());
         }
@@ -397,18 +400,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                selectedImage.setImageResource(R.drawable.incorrect);
 
                // Indicate to user which answer is the correct one
-               switch (position) {
-                   case 1: image1.setBackgroundColor(Color.GREEN);
-                       break;
-                   case 2: image2.setBackgroundColor(Color.GREEN);
-                       break;
-                   case 3: image3.setBackgroundColor(Color.GREEN);
-                       break;
-                   case 4: image4.setBackgroundColor(Color.GREEN);
-                       break;
-                   default: break;
-               }
-
                if (checkQuizNumber()) {
                    // Enable next button
                    bNext.setVisibility(View.VISIBLE);
@@ -459,6 +450,48 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         //open about page
         Intent myIntent = new Intent(MainActivity.this, AboutPage.class);
         startActivity(myIntent);
+    }
+
+    /**
+     * Handles a next click, displays four new questions
+     * and gets a new current question
+     * @param view
+     */
+    public void nextClick(View view) {
+        Resources res = getResources();
+        currQuestions.clear();
+        setCurrQuestions();
+
+        Log.d(TAG, "questions length: " + currQuestions.size());
+        currQuestion = getCurrQuestion();
+        displayImages();
+
+        image1.setClickable(true);
+        image2.setClickable(true);
+        image3.setClickable(true);
+        image4.setClickable(true);
+
+        switch (position) {
+            case 1: image1.setBackgroundColor(Color.TRANSPARENT);
+                break;
+            case 2: image2.setBackgroundColor(Color.TRANSPARENT);
+                break;
+            case 3: image3.setBackgroundColor(Color.TRANSPARENT);
+                break;
+            case 4: image4.setBackgroundColor(Color.TRANSPARENT);
+                break;
+            default: break;
+        }
+
+        bNext.setVisibility(View.INVISIBLE);
+        bNextVisible = false;
+
+        quizNumber++;
+        attempts = res.getInteger(R.integer.attempts_default);
+        position = res.getInteger(R.integer.position_default);
+
+        tvQuizNumber.setText(String.valueOf(quizNumber));
+        tvDefinition.setText(currQuestion.getDefinition());
     }
 
     /**
