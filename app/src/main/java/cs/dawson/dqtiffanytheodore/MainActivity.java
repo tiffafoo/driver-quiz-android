@@ -38,6 +38,7 @@ import cs.dawson.dqtiffanytheodore.entities.Question;
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     // Global vars
     final String TAG = "MainActivity Class: "; // tag for Logging
+    final int quizCount = 4;
     TextView tvQuizNumber, tvDefinition, tvCorrectScore, tvIncorrectScore;
     Button bHint, bAbout, bNext;
     ImageButton image1, image2, image3, image4;
@@ -363,14 +364,17 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
             Log.d(TAG, "Show correct");
 
-            // Enable next button
-            bNext.setVisibility(View.VISIBLE);
-            bNext.setEnabled(true);
-            bNextVisible = true;
+            // Check if it's question 4
+            if (checkQuizNumber()) {
+                // Enable next button
+                bNext.setVisibility(View.VISIBLE);
+                bNext.setEnabled(true);
+                bNextVisible = true;
 
-            Log.d(TAG, "Enable next");
+                Log.d(TAG, "Enable next");
 
-            attempts = 1;
+                attempts = 1;
+            }
         } else {
             // Only first image
            if(attempts>1) {
@@ -401,11 +405,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                        break;
                    default: break;
                }
-               // Enable next button
-               bNext.setVisibility(View.VISIBLE);
-               bNext.setEnabled(true);
 
-               attempts = 1;
+               if (checkQuizNumber()) {
+                   // Enable next button
+                   bNext.setVisibility(View.VISIBLE);
+                   bNext.setEnabled(true);
+
+                   attempts = 1;
+               }
            } else {
                // Disable selected image
                selectedImage.setClickable(false);
@@ -413,18 +420,32 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                // Alter image to show user answer is correct
                selectedImage.setImageResource(R.drawable.incorrect);
 
-               // Increment attempts
-               attempts++;
+               if (checkQuizNumber()) {
+                   // Increment attempts
+                   attempts++;
+               }
            }
         }
 
         Log.d(TAG, "Save to SharedPreferences");
         saveToSharedPreferences();
         Log.i(TAG, "imageClick() position: " + chosenPosition);
-
     }
 
 
+    /**
+     * Check if the four questions have been asked
+     */
+    private boolean checkQuizNumber() {
+        if (quizNumber >= 4) {
+            // TODO: Show replay button
+            previousScores.add(correctCtr/quizCount*100 + "%");
+            saveToSharedPreferences("previousScores", previousScores);
+            return true;
+        }
+
+        return false;
+    }
     /**
      * Handles an about click, fires an intent to the about page.
      * @param view
