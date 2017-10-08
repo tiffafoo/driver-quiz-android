@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     ImageButton image1, image2, image3, image4;
     ArrayList<Question> questions = new ArrayList<>();
     ArrayList<Question> currQuestions = new ArrayList<>();
+    ArrayList<Question> askedDefinitions = new ArrayList<>();
+    static ArrayList<Question> questionsHolder = new ArrayList<>();
     Question currQuestion;
     int quizNumber = 1, position = 1, correctCtr = 0, incorrectCtr = 0, quizAttempts = 0, attempts = 1;
     int totalIncorrect, totalCorrect;
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
         getSharedPreferences();
+        setQuestions();
 
         if (savedInstanceState != null) {
             // Get the saved values from the Bundle
@@ -84,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             position = savedInstanceState.getInt("position");
             attempts = savedInstanceState.getInt("attempts");
             bNextVisible = savedInstanceState.getBoolean("bNextVisible");
+            currQuestion = questions.get(savedInstanceState.getInt("currQuestionIndex"));
 
             if (bNextVisible) {
                 // Enable next button
@@ -93,20 +97,20 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
             // Set the images
             // This is where the crash happens
+            Log.d(TAG, "image1Index: " + savedInstanceState.getInt("image1Index"));
+
             image1.setImageResource(questions.get(savedInstanceState.getInt("image1Index")).getImageLink());
             image2.setImageResource(questions.get(savedInstanceState.getInt("image2Index")).getImageLink());
             image3.setImageResource(questions.get(savedInstanceState.getInt("image3Index")).getImageLink());
             image4.setImageResource(questions.get(savedInstanceState.getInt("image4Index")).getImageLink());
 
             // Set text views
+            tvDefinition.setText(currQuestion.getDefinition());
             tvQuizNumber.setText(String.valueOf(quizNumber));
             tvCorrectScore.setText(String.valueOf(correctCtr));
             tvIncorrectScore.setText(String.valueOf(incorrectCtr));
 
         } else {
-            // Initiate questions
-            setQuestions();
-
             // Initialize layout
             currQuestion = getCurrQuestion();
             tvDefinition.setText(currQuestion.getDefinition());
@@ -123,8 +127,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
      */
     private void displayImages() {
         Log.i(TAG, "Display Images");
-
-        ArrayList<Question> questionsHolder = new ArrayList<>();
 
         questionsHolder.addAll(currQuestions);
         questionsHolder.add(currQuestion);
@@ -288,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         Question randomQuestion = questions.get(randomIndex);
 
         // Make sure the question is not one of the currQuestions
-        while (currQuestions.contains(randomQuestion)) {
+        while (askedDefinitions.contains(randomQuestion) || currQuestions.contains(randomQuestion)) {
             randomIndex = random.nextInt(questions.size());
             randomQuestion = questions.get(randomIndex);
         }
@@ -304,7 +306,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         Question randomQuestion = questions.get(randomIndex);
 
-        questions.remove(randomIndex);
+        // Make sure this question hasn't been asked before
+        while (askedDefinitions.contains(randomQuestion)) {
+            randomIndex = random.nextInt(questions.size());
+            randomQuestion = questions.get(randomIndex);
+        }
+
+        askedDefinitions.add(randomQuestion);
 
         return randomQuestion;
     }
@@ -392,9 +400,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
                attempts = 1;
            } else {
-               incorrectCtr++;
-               totalIncorrect++;
-               tvIncorrectScore.setText(String.valueOf(incorrectCtr));
                // Disable selected image
                selectedImage.setClickable(false);
 
@@ -453,6 +458,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         savedInstanceState.putBoolean("bNextVisible", bNextVisible);
         savedInstanceState.putInt("incorrectCtr", incorrectCtr);
         savedInstanceState.putInt("correctCtr", correctCtr);
+        savedInstanceState.putInt("image1Index", questions.indexOf(questionsHolder.get(0)));
+        savedInstanceState.putInt("image2Index", questions.indexOf(questionsHolder.get(1)));
+        savedInstanceState.putInt("image3Index", questions.indexOf(questionsHolder.get(2)));
+        savedInstanceState.putInt("image4Index", questions.indexOf(questionsHolder.get(3)));
+        savedInstanceState.putInt("currQuestionIndex", questions.indexOf(currQuestion));
+
     }
 
 }
