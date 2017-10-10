@@ -1,3 +1,35 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">DQTiffanyTheodore</string>
+    <string name="quiz_number_text" translatable="false">Question #</string>
+    <string name="instruction">Which image matches:</string>
+    <string name="score_text">Score:</string>
+    <string name="score_default" translatable="false">0%</string>
+    <string name="about">About</string>
+    <string name="hint">Hint</string>
+    <string name="correct">Correct: </string>
+    <string name="incorrect">Incorrect: </string>
+    <string name="checked_answer">Next Question</string>
+    <string name="definition_default" translatable="false">--</string>
+    <string name="definition1">Roadway narrows on the right.</string>
+    <string name="definition2">No U-Turns allowed.</string>
+    <string name="definition3">Maximum Speed Ahead</string>
+    <string name="definition4">Winding road ahead.</string>
+    <string name="definition5">Crossroad</string>
+    <string name="definition6">Cattle Crossing</string>
+    <string name="definition7">Bicycle crossing ahead.</string>
+    <string name="definition8">Centre lane is reserved for left turns from either direction.</string>
+    <string name="definition9">Roadway, bridge or overpass may become icy when temperatures are around freezing</string>
+    <string name="definition10">Road bump.</string>
+    <string name="definition11">Yield</string>
+    <string name="definition12">No stopping during posted times between here and the next sign.</string>
+    <string name="definition13">End of reserved bus lane.</string>
+    <string name="definition14">Nearby hospital.</string>
+    <string name="definition15">School zone.</string>
+    <string name="how_to_play">Driver’s quiz about road signs. Click the correct image that matches the description.</string>
+    <string name="credits">Credits: Tiffany Le-Nguyen &amp; Theodore Acco - Thomas </string>
+  <string name="search_helper">road sign</string>
+    <string name="button_replay">Replay</string>
+    <string name="previous_score">Previous Score: </string>
+    <string name="new_score"> New Score: </string>
+
 </resources>
