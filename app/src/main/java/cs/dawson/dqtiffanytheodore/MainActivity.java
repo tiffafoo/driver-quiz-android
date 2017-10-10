@@ -199,7 +199,6 @@ public class MainActivity extends AppCompatActivity {
         // If the user previously answered the question correctly,
         // prevent the user from clicking the images and restore their choice
         if (answeredCorrectly) {
-
             // Display a checkmark image on the image button
             // the user was able to properly guess
             switch (position) {
@@ -292,7 +291,7 @@ public class MainActivity extends AppCompatActivity {
     private Question getCurrQuestion() {
         Log.i(TAG, "getCurrQuestion()");
 
-        //Get a random question from available questions
+        // Get a random question from available questions
         Random random = new Random();
         int randomIndex = random.nextInt(questions.size());
 
@@ -458,7 +457,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //Check if the four questions have been asked
+        // Check if the four questions have been asked
         if (quizNumber == QUIZ_COUNT) {
             bReplay.setVisibility(View.VISIBLE);
             bNext.setVisibility(View.GONE);
@@ -494,7 +493,7 @@ public class MainActivity extends AppCompatActivity {
     public void aboutClick(View view) {
         Log.i(TAG, "aboutClick()");
 
-        //open about page
+        // Open about page
         Intent myIntent = new Intent(MainActivity.this, AboutPage.class);
         startActivity(myIntent);
     }
@@ -523,7 +522,7 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
-        // Reset attempt counters
+        // Reset counters and arrays
         attempts = 0;
         answeredCorrectly = false;
         incorrectChoices.clear();
@@ -531,16 +530,18 @@ public class MainActivity extends AppCompatActivity {
         currQuestions.clear();
         questionsHolder.clear();
 
+        // Get new questions
         currQuestion = getCurrQuestion();
         setCurrQuestions();
+
+        // Set display and clickables
         displayImages();
-
         setImagesClickable(true);
-
         bNext.setVisibility(View.INVISIBLE);
 
         quizNumber++;
 
+        // Set text for quiz and definition
         tvQuizNumber.setText(String.valueOf(quizNumber));
         tvDefinition.setText(currQuestion.getDefinition());
 
@@ -589,7 +590,7 @@ public class MainActivity extends AppCompatActivity {
         bReplay.setVisibility(View.GONE);
         bNext.setVisibility(View.INVISIBLE);
 
-        //rest counters
+        // Rest counters
         quizNumber = 1;
         position = 1;
         correctCtr = 0;
@@ -597,7 +598,7 @@ public class MainActivity extends AppCompatActivity {
         attempts = 0;
         answeredCorrectly = false;
 
-        //reset questions
+        // Reset questions
         askedDefinitionsIndex.clear();
         askedDefinitions.clear();
         incorrectChoices.clear();
