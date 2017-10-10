@@ -26,4 +26,11 @@
     <string name="incorrect">Incorrect:</string>
     <string name="instruction">Quelle image correspond:</string>
     <string name="quiz_number_text">Question #</string>
+    <string name="search_helper">"panneau de signalisation "</string>
+    <string name="button_replay">Rejouer</string>
+    <string name="new_score">\"Marquer des points: \"</string>
+    <string name="definition_default">--</string>
+    <string name="previous_score">\"Note précédente: \"</string>
+    <string name="score_default">--%</string>
+    <string name="score_text">Score:</string>
 </resources>

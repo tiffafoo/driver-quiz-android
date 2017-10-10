@@ -28,8 +28,7 @@
                 android:id="@+id/tvQuizNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="9"
-                android:text="@integer/quiz_number_default"/>
+                android:layout_weight="9"/>
             <TextView
                 android:id="@+id/tvCorrectScoreText"
                 android:layout_width="wrap_content"
@@ -42,7 +41,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:text="@integer/correct_score_default"
                 android:textSize="16sp" />
             <TextView
                 android:id="@+id/tvIncorrectScoreText"
@@ -56,7 +54,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:text="@integer/incorrect_score_default"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -88,34 +85,37 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2">
+
             <ImageButton
                 android:id="@+id/ib1"
+                android:background="@android:drawable/btn_default"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
-                android:layout_weight="1"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="0dp"
+                android:layout_weight="1"
                 android:adjustViewBounds="true"
+                android:onClick="imageClick"
                 android:padding="20dp"
                 android:scaleType="fitCenter"
-                android:onClick="imageClick"
-                app:srcCompat="@drawable/sign1"
-                />
+                app:srcCompat="@drawable/sign1" />
+
             <ImageButton
                 android:id="@+id/ib2"
+                android:background="@android:drawable/btn_default"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
-                android:layout_weight="1"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="0dp"
+                android:layout_weight="1"
                 android:adjustViewBounds="true"
+                android:onClick="imageClick"
                 android:padding="20dp"
                 android:scaleType="fitCenter"
-                android:onClick="imageClick"
                 app:srcCompat="@drawable/sign2" />
         </LinearLayout>
         <LinearLayout
@@ -123,29 +123,33 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2">
+
             <ImageButton
                 android:id="@+id/ib3"
+                android:background="@android:drawable/btn_default"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="0dp"
-                android:adjustViewBounds="true"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:onClick="imageClick"
                 android:padding="20dp"
                 android:scaleType="fitCenter"
-                android:onClick="imageClick"
                 app:srcCompat="@drawable/sign3" />
+
             <ImageButton
                 android:id="@+id/ib4"
+                android:background="@android:drawable/btn_default"
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="5dp"
-                android:layout_weight="1"
                 android:layout_marginTop="0dp"
+                android:layout_weight="1"
                 android:adjustViewBounds="true"
                 android:onClick="imageClick"
                 android:padding="20dp"
@@ -208,5 +212,15 @@
             android:textSize="30sp"
             android:visibility="invisible"
             android:onClick="nextClick" />
+        <Button
+            android:id="@+id/buttonReplay"
+            android:background="@color/colorAccent"
+            android:textColor="#FFF"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_replay"
+            android:textSize="30sp"
+            android:visibility="gone"
+            android:onClick="replayClick" />
     </LinearLayout>
 </ScrollView>
