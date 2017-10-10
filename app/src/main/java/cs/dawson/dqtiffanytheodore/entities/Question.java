@@ -13,7 +13,6 @@ public class Question {
      * @param imageLink link to image
      * @param definition definition of question
      */
-
     public Question(int imageLink, String definition) {
         setImageLink(imageLink);
         setDefinition(definition);
@@ -38,6 +37,11 @@ public class Question {
 
 
     @Override
+    /**
+     * Checks if an instance of Question
+     * is the same as another.
+     * @param {Object} o -- object to compare
+     */
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Question)) return false;
@@ -52,6 +56,9 @@ public class Question {
     }
 
     @Override
+    /**
+     * Override default hashcode
+     */
     public int hashCode() {
         int result = getImageLink();
         result = 31 * result + (getDefinition() != null ? getDefinition().hashCode() : 0);

@@ -4,7 +4,7 @@
     <string name="about">À propos</string>
     <string name="checked_answer">Question suivante</string>
     <string name="credits">Honneur: Tiffany Le-Nguyen &amp; Theodore Acco - Thomas </string>
-    <string name="correct">Correct:</string>
+    <string name="correct">Corrects:</string>
     <string name="definition1">La route se rétrécit à droite.</string>
     <string name="definition10">Route bosse.</string>
     <string name="definition11">Céder</string>
@@ -20,15 +20,14 @@
     <string name="definition7">Passage à bicyclette devant.</string>
     <string name="definition8">La voie centrale est réservée aux virages à gauche dans les deux directions.</string>
     <string name="definition9">La chaussée, le pont ou le viaduc peuvent devenir glaciaux lorsque la température approche du point de congélation</string>
-    <string name="hint">Allusion</string>
+    <string name="hint">Aide</string>
     <string name="how_to_play">Quiz du chauffeur sur les panneaux de signalisation. Cliquez sur l\'image correcte qui correspond à la description.</string>
     <string name="incorrect">Incorrect:</string>
     <string name="instruction">Quelle image correspond:</string>
-    <string name="quiz_number_text">Question #</string>
     <string name="search_helper">panneau de signalisation</string>
     <string name="button_replay">Rejouer</string>
-    <string name="new_score">Marquer des points: </string>
+    <string name="new_score"> Nouveaux points: </string>
     <string name="definition_default">--</string>
-    <string name="previous_score">Note précédente: </string>
-    <string name="score_text">Score:</string>
+    <string name="previous_score">Points précédents: </string>
+    <string name="score_text">Points:</string>
 </resources>

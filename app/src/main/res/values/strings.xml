@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">DQTiffanyTheodore</string>
-    <string name="quiz_number_text">Question #</string>
+    <string name="quiz_number_text" translatable="false">Question #</string>
     <string name="instruction">Which image matches:</string>
     <string name="score_text">Score:</string>
     <string name="score_default" translatable="false">0%</string>
@@ -30,6 +30,6 @@
   <string name="search_helper">road sign</string>
     <string name="button_replay">Replay</string>
     <string name="previous_score">Previous Score: </string>
-    <string name="new_score">New Score: </string>
+    <string name="new_score"> New Score: </string>
 
 </resources>
