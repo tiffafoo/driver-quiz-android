@@ -589,7 +589,7 @@ public class MainActivity extends AppCompatActivity {
         bReplay.setVisibility(View.GONE);
         bNext.setVisibility(View.INVISIBLE);
 
-        //rest counters
+        // Rest counters
         quizNumber = 1;
         position = 1;
         correctCtr = 0;
@@ -597,7 +597,7 @@ public class MainActivity extends AppCompatActivity {
         attempts = 0;
         answeredCorrectly = false;
 
-        //reset questions
+        // Reset questions
         askedDefinitionsIndex.clear();
         askedDefinitions.clear();
         incorrectChoices.clear();
