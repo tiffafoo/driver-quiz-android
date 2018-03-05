@@ -1,10 +1,11 @@
-# Assignment 1: DQTiffanyTheodore (Due October 10th)
+# Driver Quiz App
 
 ## Members
 * [@sirMerr - Tiffany Le-Nguyen](https://github.com/sirMerr)
 * [@theoathomas - Theodore Acco-Thomas](https://github.com/theoathomas)
 
 ## Project Overview¶ 🚗
+Made for an assignment
 
 **DQTiffanyTheodore** is a Driver Quiz App which asks four questions to a user, giving them the choice to select one of four images that correspond to the definition. Each image is also associated to a definition, found through google search using said definition.
  
